@@ -2,7 +2,6 @@ package edu.wit.mobileapp.musicapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +11,7 @@ import java.io.InputStreamReader;
 public class DAW extends AppCompatActivity {
 
     Node root = new Node();
+    final int numChords = 4;
 
     private class Node {
         private boolean end;
@@ -30,11 +30,11 @@ public class DAW extends AppCompatActivity {
             String l;
             while ((l = reader.readLine()) != null) {
                 String[] ll = l.split(" ");
-                int[] prog = new int[ll.length];
-                for (int i = 0; i < ll.length; i++) {
-                    prog[i] = Integer.parseInt(ll[i]);
+                int[] line = new int[numChords];
+                for (int i = 0; i < numChords; i++) {
+                    line[i] = Integer.parseInt(ll[i]);
                 }
-                insertRecursive(root, prog, 0);
+                insertRecursive(root, line, 0);
             }
         }
         catch (IOException e) {
@@ -61,5 +61,6 @@ public class DAW extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daw);
+        fillTrie();
     }
 }
