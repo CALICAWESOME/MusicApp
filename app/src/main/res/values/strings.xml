@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">MusicApp</string>
     <string name="create">Create New Song</string>
+    <string name="funk">Funkify</string>
+    <string name="tempo">BPM</string>
+    <string name="title_activity_temp">temp</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>
