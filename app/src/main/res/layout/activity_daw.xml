@@ -77,7 +77,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/bg"
-                            app:srcCompat="@mipmap/ic_launcher" />
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:padding="5dp"
+                            app:srcCompat="@drawable/ic_drum_icon" />
                     </TableRow>
 
                     <TableRow
@@ -91,7 +94,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/bg"
-                            app:srcCompat="@mipmap/ic_launcher" />
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"
+                            android:padding="5dp"
+                            app:srcCompat="@drawable/ic_piano_icon" />
                     </TableRow>
 
                     <TableRow
@@ -102,10 +108,13 @@
 
                         <ImageView
                             android:id="@+id/imageView4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:background="@color/bg"
-                            app:srcCompat="@mipmap/ic_launcher" />
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:padding="5dp"
+                            app:srcCompat="@drawable/ic_bass_icon" />
 
                         <Switch
                             android:id="@+id/switch1"
