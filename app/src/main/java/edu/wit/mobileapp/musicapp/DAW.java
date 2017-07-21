@@ -21,6 +21,7 @@ public class DAW extends AppCompatActivity {
 
     Theory.note key;    // ex: A
     Theory.type degree; // ex: minor
+    // TODO: sync this with DAW buttons (see line 45)
     int prog[] = new int[numChords];
 
     @Override
@@ -38,9 +39,10 @@ public class DAW extends AppCompatActivity {
         });
         prog[0] = 7;
         prog[1] = 5;
-        int suggz[] = getSugg(2);
+        int suggz[] = getSugg(2); // beef!!!
     }
 
+    // TODO: make this work for selecting chords and getting suggestions
     private void chordSelectorDialog() {
         AlertDialog.Builder adb = new AlertDialog.Builder(this);
         adb.setMessage("HEY");
@@ -103,15 +105,20 @@ public class DAW extends AppCompatActivity {
         insertRecursive(curr.next[j], line, i+1);
     }
 
-    // wrapper for getSuggRecursive
+    /**
+     * getSugg gets suggestions for the next chord to come in the progression. Suggestions are made
+     * for chord number chordNum in the progression.
+     * @param chordNum get suggestions for the chord to come after this chord in the progression
+     * @return an array of suggested chords, each number is the root of the chord relative to the
+     * tonic of the key
+     */
     private int[] getSugg(int chordNum) {
         return getSuggRecursive(root, chordNum, 0);
     }
 
     private int[] getSuggRecursive(Node curr, int chordNum, int i) {
         if (curr == null) {
-            int emptyarr[] = new int[0];
-            return emptyarr;
+            return new int[0];
         }
 
         if (i < chordNum)
