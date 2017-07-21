@@ -1,17 +1,63 @@
 package edu.wit.mobileapp.musicapp;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 public class DAW extends AppCompatActivity {
 
     Node root = new Node();
     final int numChords = 4;
+
+    Theory.note key;    // ex: A
+    Theory.type degree; // ex: minor
+    int prog[] = new int[numChords];
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_daw);
+        fillTrie();
+
+        Button chord1 = (Button) findViewById(R.id.chord1);
+        chord1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chordSelectorDialog();
+            }
+        });
+        prog[0] = 7;
+        prog[1] = 5;
+        int suggz[] = getSugg(2);
+    }
+
+    private void chordSelectorDialog() {
+        AlertDialog.Builder adb = new AlertDialog.Builder(this);
+        adb.setMessage("HEY");
+        adb.setPositiveButton("yuh", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.v("yuh", String.valueOf(which));
+            }
+        });
+        adb.setNegativeButton("nuh", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.v("nuh", String.valueOf(which));
+            }
+        });
+        adb.create().show();
+    }
 
     private class Node {
         private boolean end;
@@ -57,10 +103,29 @@ public class DAW extends AppCompatActivity {
         insertRecursive(curr.next[j], line, i+1);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_daw);
-        fillTrie();
+    // wrapper for getSuggRecursive
+    private int[] getSugg(int chordNum) {
+        return getSuggRecursive(root, chordNum, 0);
+    }
+
+    private int[] getSuggRecursive(Node curr, int chordNum, int i) {
+        if (curr == null) {
+            int emptyarr[] = new int[0];
+            return emptyarr;
+        }
+
+        if (i < chordNum)
+            return getSuggRecursive(curr.next[prog[i]-1], chordNum, i+1);
+
+        ArrayList<Integer> ret = new ArrayList<>();
+        for (int j = 0; j < curr.next.length; j++)
+            if (curr.next[j]!= null)
+                ret.add(j);
+
+        int realret[] = new int[ret.size()];
+        for (int j = 0; j < ret.size(); j++)
+            realret[j] = ret.get(j)+1;
+
+        return realret;
     }
 }

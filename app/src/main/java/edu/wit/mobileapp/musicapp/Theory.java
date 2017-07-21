@@ -14,6 +14,16 @@ final class Theory {
         major, minor, diminished, tritone
     }
 
+    class chord {
+        note root;
+        type type;
+
+        public chord(note root, type type) {
+            this.root = root;
+            this.type = type;
+        }
+    }
+
     // TODO: make this suck less (see below)
     note[] buildChord(note root, type k) {
         note[] chord = new note[3];
