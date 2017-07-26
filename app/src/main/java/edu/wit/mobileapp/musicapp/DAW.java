@@ -38,20 +38,20 @@ public class DAW extends AppCompatActivity {
                 chordSelectorDialog();
             }
         });
-        prog[0] = 7;
+        prog[0] = 1;
         prog[1] = 5;
         int suggz[] = getSugg(2); // beef!!!
 
         NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
-        numberPicker.setMinValue(0);
-        numberPicker.setMaxValue(200);
+        numberPicker.setMinValue(40);
+        numberPicker.setMaxValue(208);
         numberPicker.setValue(120); // default
 
         NumberPicker keyPicker = (NumberPicker) findViewById(R.id.keyPicker);
-        String[] alphabet = {"A","B","C","D","E","F","G"};
+        String[] keys = {"C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"};
         keyPicker.setMaxValue(0);
-        keyPicker.setMaxValue(6);
-        keyPicker.setDisplayedValues(alphabet);
+        keyPicker.setMaxValue(keys.length-1);
+        keyPicker.setDisplayedValues(keys);
     }
 
     // TODO: make this work for selecting chords and getting suggestions
