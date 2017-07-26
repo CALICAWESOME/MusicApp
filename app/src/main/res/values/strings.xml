@@ -3,6 +3,7 @@
     <string name="create">Create New Song</string>
     <string name="funk">Funkify</string>
     <string name="tempo">BPM</string>
+    <string name="key">KEY</string>
     <string name="title_activity_temp">temp</string>
     <string name="title_daw">Write</string>
     <string name="title_tuner">Tune</string>

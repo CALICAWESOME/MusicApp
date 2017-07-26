@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.NumberPicker;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,6 +41,17 @@ public class DAW extends AppCompatActivity {
         prog[0] = 7;
         prog[1] = 5;
         int suggz[] = getSugg(2); // beef!!!
+
+        NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(200);
+        numberPicker.setValue(120); // default
+
+        NumberPicker keyPicker = (NumberPicker) findViewById(R.id.keyPicker);
+        String[] alphabet = {"A","B","C","D","E","F","G"};
+        keyPicker.setMaxValue(0);
+        keyPicker.setMaxValue(6);
+        keyPicker.setDisplayedValues(alphabet);
     }
 
     // TODO: make this work for selecting chords and getting suggestions
