@@ -48,7 +48,7 @@ public class DAW extends AppCompatActivity {
         numberPicker.setValue(120); // default
 
         NumberPicker keyPicker = (NumberPicker) findViewById(R.id.keyPicker);
-        String[] keys = {"C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"};
+        String[] keys = {"C", "G", "D", "A", "E", "B", "F♯", "C♯", "C♭", "G♭", "D♭", "A♭", "E♭", "B♭", "F"};
         keyPicker.setMaxValue(0);
         keyPicker.setMaxValue(keys.length-1);
         keyPicker.setDisplayedValues(keys);
