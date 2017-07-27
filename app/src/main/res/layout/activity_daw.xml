@@ -8,9 +8,9 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentStart="true"
+        android:background="@color/bg2"
         android:layout_alignParentTop="true"
-        android:background="@color/bg2">
+        android:layout_alignParentStart="true">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/bar"
@@ -322,14 +322,19 @@
 
         <EditText
             android:id="@+id/myEditText"
+            style="@style/EditText.SongTitle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_above="@+id/toolbar"
             android:layout_alignStart="@+id/playhead"
-            android:hint="Song 1"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="5dp"
+            android:hint="Song Title"
+            android:paddingBottom="0dp"
+            android:paddingTop="0dp"
             android:singleLine="true"
-            android:textColor="@color/white"
-            android:textColorHint="@color/colorPrimaryLight" />
+            android:textSize="20sp"
+            android:theme="@style/EditText.SongTitle" />
 
     </RelativeLayout>
 

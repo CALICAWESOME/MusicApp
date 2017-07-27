@@ -12,6 +12,13 @@
         <item name="android:textColorPrimary">@color/white</item>
     </style>
 
+    <style name="EditText.SongTitle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorHint">@color/colorPrimaryLight</item>
+        <item name="colorControlNormal">@color/colorPrimaryLight</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+    </style>
+
     <style name="AppThemeNoBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
