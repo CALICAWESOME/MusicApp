@@ -12,14 +12,23 @@
         android:layout_alignParentTop="true"
         android:background="@color/bg2">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary">
+
+
+        </android.support.v7.widget.Toolbar>
+
         <RelativeLayout
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:background="@color/bg"
-            android:minHeight="?attr/actionBarSize">
+            android:minHeight="?attr/actionBarSize"
+            android:layout_below="@+id/bar"
+            android:layout_alignParentStart="true">
 
             <NumberPicker
                 android:id="@+id/numberPicker"
@@ -55,7 +64,8 @@
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/keyPicker"
                 android:text="@string/key"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:id="@+id/textView" />
 
             <NumberPicker
                 android:id="@+id/keyPicker"
@@ -65,7 +75,6 @@
                 android:layout_centerVertical="true"
                 android:textColor="@color/white"
                 android:theme="@style/AppTheme.Picker" />
-
         </RelativeLayout>
 
         <ImageView
@@ -203,7 +212,7 @@
                             app:srcCompat="@drawable/ic_mic_black_24dp" />
 
                         <ImageView
-                            android:id="@+id/drumdaw2"
+                            android:id="@+id/wave"
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:layout_margin="7dp"
@@ -228,14 +237,16 @@
                             android:scaleType="fitCenter"
                             app:srcCompat="@drawable/ic_bass_icon" />
 
-
-                        <Switch
-                            android:id="@+id/switch1"
-                            android:layout_width="match_parent"
+                        <ImageView
+                            android:id="@+id/bass"
+                            android:layout_width="1dp"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
-                            android:gravity="right|center_vertical"
-                            android:text="@string/funk" />
+                            android:layout_margin="7dp"
+                            android:adjustViewBounds="false"
+                            android:background="@color/colorBass"
+                            android:padding="10dp"
+                            android:scaleType="fitXY"
+                            app:srcCompat="@drawable/ic_drumdaw" />
                     </TableRow>
 
                     <TableRow
@@ -291,6 +302,34 @@
                 android:layout_height="wrap_content"
                 android:text="@string/title_tabs" />
         </android.support.design.widget.TabLayout>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/toolbar"
+            android:layout_alignParentStart="true"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
+        <ImageView
+            android:id="@+id/settings"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/toolbar"
+            android:layout_alignParentEnd="true"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_settings_black_24dp" />
+
+        <EditText
+            android:id="@+id/myEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/toolbar"
+            android:layout_alignStart="@+id/playhead"
+            android:hint="Song 1"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/colorPrimaryLight" />
 
     </RelativeLayout>
 
