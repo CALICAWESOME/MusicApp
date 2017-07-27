@@ -14,14 +14,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class DAW extends AppCompatActivity {
 
     Node root = new Node();
     final int numChords = 4;
 
-    Theory.note key;    // ex: A
-    Theory.type degree; // ex: minor
+    Theory.note key = Theory.note.Eb;
+    Theory.type degree = Theory.type.major;
     // TODO: sync this with DAW buttons (see line 45)
     int prog[] = new int[numChords];
 
@@ -38,9 +39,18 @@ public class DAW extends AppCompatActivity {
                 chordSelectorDialog();
             }
         });
+        Random rand = new Random();
         prog[0] = 1;
-        prog[1] = 5;
-        int suggz[] = getSugg(2); // beef!!!
+        int boi[] = getSugg(1);
+        prog[1] = boi[rand.nextInt(boi.length)];
+        boi = getSugg(2);
+        prog[2] = boi[rand.nextInt(boi.length)];
+        boi = getSugg(3);
+        prog[3] = boi[rand.nextInt(boi.length)];
+
+        for (int i : prog) {
+            Log.v("HEY", Theory.num2Chord(i, key).toString());
+        }
 
         NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
         numberPicker.setMinValue(40);
@@ -132,16 +142,19 @@ public class DAW extends AppCompatActivity {
         if (curr == null) {
             return new int[0];
         }
-
         if (i < chordNum)
             return getSuggRecursive(curr.next[prog[i]-1], chordNum, i+1);
 
+        // ret will be converted into an array of ints
         ArrayList<Integer> ret = new ArrayList<>();
+        // for each chord that would come next
         for (int j = 0; j < curr.next.length; j++)
             if (curr.next[j]!= null)
                 ret.add(j);
 
+        // becausee Java can't implicitly convert integer objects to int type
         int realret[] = new int[ret.size()];
+        // fill realRet manually
         for (int j = 0; j < ret.size(); j++)
             realret[j] = ret.get(j)+1;
 
