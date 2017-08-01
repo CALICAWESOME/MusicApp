@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
@@ -62,6 +65,10 @@ public class DAW extends AppCompatActivity {
 
         final ImageView playhead = (ImageView) findViewById(R.id.playhead);
         playhead.setVisibility(View.INVISIBLE);
+        final TranslateAnimation animation = new TranslateAnimation(0,400,0,0);
+        animation.setRepeatCount(Animation.INFINITE);
+        animation.setDuration(8000);
+        animation.setInterpolator(new LinearInterpolator());
         final ImageView playButton = (ImageView) findViewById(R.id.play);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,11 +77,13 @@ public class DAW extends AppCompatActivity {
                     playButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                     playing = false;
                     playhead.setVisibility(View.INVISIBLE);
+                    playhead.clearAnimation();
                 }
                 else{
                     playButton.setImageResource(R.drawable.ic_pause_black_24dp);
                     playing = true;
                     playhead.setVisibility(View.VISIBLE);
+                    playhead.startAnimation(animation);
                 }
             }
         });
@@ -83,6 +92,12 @@ public class DAW extends AppCompatActivity {
         numberPicker.setMinValue(40);
         numberPicker.setMaxValue(208);
         numberPicker.setValue(120); // default
+        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int i, int i2) {
+                animation.setDuration(16000*60/i2);
+            }
+        });
 
         NumberPicker keyPicker = (NumberPicker) findViewById(R.id.keyPicker);
         String[] keys = {"C", "G", "D", "A", "E", "B", "F♯", "C♯", "C♭", "G♭", "D♭", "A♭", "E♭", "B♭", "F"};
