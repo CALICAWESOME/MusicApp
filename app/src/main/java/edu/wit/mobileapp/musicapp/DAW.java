@@ -126,6 +126,12 @@ public class DAW extends AppCompatActivity {
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int i, int i2) {
+                if(playing){
+                    playButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                    playing = false;
+                    playhead.setVisibility(View.INVISIBLE);
+                    playhead.clearAnimation();
+                }
                 animation.setDuration(16000*60/i2);
             }
         });
