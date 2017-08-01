@@ -78,7 +78,7 @@
         </RelativeLayout>
 
         <ImageView
-            android:id="@+id/playhead"
+            android:id="@+id/playheadImage"
             android:layout_width="wrap_content"
             android:layout_height="8dp"
             android:layout_below="@+id/toolbar"
@@ -93,7 +93,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_above="@+id/tablayout"
-            android:layout_below="@+id/playhead">
+            android:layout_below="@+id/playheadImage">
 
             <LinearLayout
                 android:id="@+id/tab1"
@@ -283,10 +283,10 @@
         </FrameLayout>
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/playhead"
             android:layout_width="2dp"
             android:layout_height="match_parent"
-            android:layout_alignStart="@+id/playhead"
+            android:layout_alignStart="@+id/playheadImage"
             android:layout_below="@+id/toolbar"
             android:background="@drawable/ic_rectangle"
             android:scaleType="fitXY" />
@@ -340,7 +340,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_above="@+id/toolbar"
-            android:layout_alignStart="@+id/playhead"
+            android:layout_alignStart="@+id/playheadImage"
             android:layout_marginBottom="6dp"
             android:layout_marginTop="5dp"
             android:hint="Song Title"
