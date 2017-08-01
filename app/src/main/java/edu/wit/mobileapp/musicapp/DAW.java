@@ -34,6 +34,8 @@ public class DAW extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        // fill trie with data from prog.txt
         fillTrie();
 
         Button chord1 = (Button) findViewById(R.id.chord1);
