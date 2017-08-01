@@ -6,8 +6,19 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="PICK A CHORD MOTHERFUCKER"
         android:layout_alignParentTop="true"
         android:gravity="center"
+        android:paddingTop="25dp"
+        android:text="@string/chord_pick"
         android:textSize="20sp" />
+
+    <NumberPicker
+        android:id="@+id/chordPicker"
+        android:layout_width="75dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="15dp"
+        android:theme="@style/AppTheme.Picker2" />
 </RelativeLayout>
