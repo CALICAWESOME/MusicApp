@@ -6,19 +6,28 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
         android:paddingTop="25dp"
         android:text="@string/chord_pick"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:gravity="center"/>
 
-    <NumberPicker
-        android:id="@+id/chordPicker"
-        android:layout_width="75dp"
-        android:layout_height="50dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="25dp"
-        android:layout_marginTop="15dp"
-        android:theme="@style/AppTheme.Picker2" />
+        android:layout_alignParentEnd="true"
+        android:gravity="center">
+
+        <NumberPicker
+            android:id="@+id/chordRootPicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/chordTypePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 </RelativeLayout>

@@ -12,9 +12,12 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TabHost;
 
 import java.io.BufferedReader;
@@ -73,9 +76,34 @@ public class DAW extends AppCompatActivity {
         chord1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chordSelectorDialog();
+                chordSelectorDialog(1);
             }
         });
+
+        Button chord2 = (Button) findViewById(R.id.chord2);
+        chord2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chordSelectorDialog(2);
+            }
+        });
+
+        Button chord3 = (Button) findViewById(R.id.chord3);
+        chord3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chordSelectorDialog(3);
+            }
+        });
+
+        Button chord4 = (Button) findViewById(R.id.chord4);
+        chord4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chordSelectorDialog(4);
+            }
+        });
+
         Random rand = new Random();
         prog[0] = 1;
         int boi[] = getSugg(1);
@@ -137,18 +165,39 @@ public class DAW extends AppCompatActivity {
 
         NumberPicker keyPicker = (NumberPicker) findViewById(R.id.keyPicker);
         String[] keys = {"C", "G", "D", "A", "E", "B", "F♯", "C♯", "C♭", "G♭", "D♭", "A♭", "E♭", "B♭", "F"};
-        keyPicker.setMaxValue(0);
+        keyPicker.setMinValue(0);
         keyPicker.setMaxValue(keys.length-1);
         keyPicker.setDisplayedValues(keys);
     }
 
     // TODO: make this work for selecting chords and getting suggestions
-    private void chordSelectorDialog() {
+    private void chordSelectorDialog(int chordNum) {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.chord_picker);
-        dialog.setTitle("ya mum");
+        TextView t = (TextView) dialog.findViewById(R.id.textView2);
+        String theBoy = "CHORD " + chordNum;
+        t.setText(theBoy);
+
+        // root picker
+        NumberPicker rootPick = (NumberPicker) dialog.findViewById(R.id.chordRootPicker);
+        String[] notez = new String[Theory.note.values().length];
+        for (int i = 0; i < notez.length; i++)
+            notez[i] = Theory.note.values()[i].name();
+        rootPick.setMinValue(0);
+        rootPick.setMaxValue(notez.length-1);
+        rootPick.setDisplayedValues(notez);
+
+        // type picker
+        Spinner spinner = (Spinner) dialog.findViewById(R.id.chordTypePicker);
+        String[] types = {"major", "minor", "diminished"};
+        spinner.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, types));
+
         dialog.show();
     }
+
+    //////////////////////////////////
+    // AFTER HERE IS ALL TRIE STUFF //
+    //////////////////////////////////
 
     private class Node {
         private boolean end;
