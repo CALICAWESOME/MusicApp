@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.NumberPicker;
 
 import java.io.BufferedReader;
@@ -21,6 +22,7 @@ public class DAW extends AppCompatActivity {
 
     Node root = new Node();
     final int numChords = 4;
+    boolean playing = false;
 
     Theory.note key = Theory.note.Eb;
     Theory.type degree = Theory.type.major;
@@ -57,6 +59,25 @@ public class DAW extends AppCompatActivity {
         for (int i : prog) {
             Log.v("HEY", Theory.num2Chord(i, key).toString());
         }
+
+        final ImageView playhead = (ImageView) findViewById(R.id.playhead);
+        playhead.setVisibility(View.INVISIBLE);
+        final ImageView playButton = (ImageView) findViewById(R.id.play);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(playing){
+                    playButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+                    playing = false;
+                    playhead.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    playButton.setImageResource(R.drawable.ic_pause_black_24dp);
+                    playing = true;
+                    playhead.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
         numberPicker.setMinValue(40);
