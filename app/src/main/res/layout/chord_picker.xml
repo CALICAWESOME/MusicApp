@@ -12,6 +12,7 @@
         android:gravity="center"/>
 
     <LinearLayout
+        android:id="@+id/pickersGoHere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -30,4 +31,14 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK COOL"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/pickersGoHere" />
+
+
 </RelativeLayout>

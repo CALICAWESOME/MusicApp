@@ -152,8 +152,8 @@ public class DAW extends AppCompatActivity {
         t.setText(theBoy);
 
         // root picker
-        NumberPicker rootPick = (NumberPicker) dialog.findViewById(R.id.chordRootPicker);
-        String[] notez = new String[Theory.note.values().length];
+        final NumberPicker rootPick = (NumberPicker) dialog.findViewById(R.id.chordRootPicker);
+        final String[] notez = new String[Theory.note.values().length];
         for (int i = 0; i < notez.length; i++)
             notez[i] = Theory.note.values()[i].name();
         rootPick.setMinValue(0);
@@ -161,9 +161,24 @@ public class DAW extends AppCompatActivity {
         rootPick.setDisplayedValues(notez);
 
         // type picker
-        Spinner spinner = (Spinner) dialog.findViewById(R.id.chordTypePicker);
+        final Spinner spinner = (Spinner) dialog.findViewById(R.id.chordTypePicker);
         String[] types = {"major", "minor", "diminished"};
         spinner.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, types));
+
+        Button done = (Button) dialog.findViewById(R.id.done);
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int rootIndex = rootPick.getValue();
+                int typeIndex = spinner.getSelectedItemPosition();
+                Theory.chord theBoi = new Theory.chord(
+                        Theory.note.values()[rootIndex],
+                        Theory.type.values()[typeIndex]);
+                // set current chord in prog
+                // translate to number??!?!??
+                dialog.dismiss();
+            }
+        });
 
         dialog.show();
     }
