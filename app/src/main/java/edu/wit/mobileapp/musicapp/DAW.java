@@ -52,7 +52,7 @@ public class DAW extends AppCompatActivity {
         //Tab 1
         TabHost.TabSpec spec = host.newTabSpec("Write");
         spec.setContent(R.id.tab1);
-        spec.setIndicator("WRITE");
+        spec.setIndicator("WRITE"); 
         host.addTab(spec);
 
         //Tab 2
