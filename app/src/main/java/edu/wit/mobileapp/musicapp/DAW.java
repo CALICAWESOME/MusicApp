@@ -1,7 +1,7 @@
 package edu.wit.mobileapp.musicapp;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -72,21 +72,10 @@ public class DAW extends AppCompatActivity {
 
     // TODO: make this work for selecting chords and getting suggestions
     private void chordSelectorDialog() {
-        AlertDialog.Builder adb = new AlertDialog.Builder(this);
-        adb.setMessage("HEY");
-        adb.setPositiveButton("yuh", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.v("yuh", String.valueOf(which));
-            }
-        });
-        adb.setNegativeButton("nuh", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.v("nuh", String.valueOf(which));
-            }
-        });
-        adb.create().show();
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.chord_picker);
+        dialog.setTitle("ya mum");
+        dialog.show();
     }
 
     private class Node {
