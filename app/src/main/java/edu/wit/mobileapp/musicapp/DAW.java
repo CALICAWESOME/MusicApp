@@ -2,6 +2,8 @@ package edu.wit.mobileapp.musicapp;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +15,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.TabHost;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,6 +42,29 @@ public class DAW extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        TabHost host = (TabHost) findViewById(R.id.tabHost);
+        host.setup();
+
+        //Tab 1
+        TabHost.TabSpec spec = host.newTabSpec("Write");
+        spec.setContent(R.id.tab1);
+        spec.setIndicator("WRITE");
+        host.addTab(spec);
+
+        //Tab 2
+        spec = host.newTabSpec("Edit");
+        spec.setContent(R.id.tab2);
+        spec.setIndicator("Edit");
+        host.addTab(spec);
+
+        //Tab 3
+        spec = host.newTabSpec("Play");
+        spec.setContent(R.id.tab3);
+        spec.setIndicator("Play");
+        host.addTab(spec);
+
+        host.setCurrentTab(1);
 
         // fill trie with data from prog.txt
         fillTrie();
@@ -93,8 +119,8 @@ public class DAW extends AppCompatActivity {
         });
 
         NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
-        numberPicker.setMinValue(40);
-        numberPicker.setMaxValue(208);
+        numberPicker.setMinValue(70);
+        numberPicker.setMaxValue(200);
         numberPicker.setValue(120); // default
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
