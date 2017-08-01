@@ -282,14 +282,19 @@
 
         </FrameLayout>
 
-        <ImageView
-            android:id="@+id/playhead"
-            android:layout_width="2dp"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignStart="@+id/playheadImage"
             android:layout_below="@+id/toolbar"
-            android:background="@drawable/ic_rectangle"
-            android:scaleType="fitXY" />
+            android:layout_alignStart="@+id/playheadImage">
+
+            <ImageView
+                android:id="@+id/playhead"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_rectangle"
+                android:scaleType="fitXY" />
+        </RelativeLayout>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tablayout"

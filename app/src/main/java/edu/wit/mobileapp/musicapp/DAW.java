@@ -65,7 +65,11 @@ public class DAW extends AppCompatActivity {
 
         final ImageView playhead = (ImageView) findViewById(R.id.playhead);
         playhead.setVisibility(View.INVISIBLE);
-        final TranslateAnimation animation = new TranslateAnimation(0,400,0,0);
+        final TranslateAnimation animation = new TranslateAnimation(
+                TranslateAnimation.RELATIVE_TO_PARENT, 0f,
+                TranslateAnimation.RELATIVE_TO_PARENT, 1.0f,
+                TranslateAnimation.ABSOLUTE, 0f,
+                TranslateAnimation.ABSOLUTE, 0f);
         animation.setRepeatCount(Animation.INFINITE);
         animation.setDuration(8000);
         animation.setInterpolator(new LinearInterpolator());
