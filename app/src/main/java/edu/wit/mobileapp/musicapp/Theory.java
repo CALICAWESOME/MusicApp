@@ -85,7 +85,7 @@ class Theory {
                     ret += "\n";
                 }
             }
-            return ret;
+            return ret.replace("b", nonEmojiFlat);
         }
         @Override
         public String toString() {
@@ -98,7 +98,7 @@ class Theory {
                     typeabbr = "°";
                     break;
             }
-            return root.toString().replace("b", nonEmojiFlat) + typeabbr;
+            return root.toString().replace("b", nonEmojiFlat + " ") + typeabbr;
         }
     }
 
