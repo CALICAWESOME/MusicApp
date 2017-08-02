@@ -2,8 +2,6 @@ package edu.wit.mobileapp.musicapp;
 
 import android.app.Dialog;
 import android.media.MediaPlayer;
-import android.graphics.PorterDuff;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -33,6 +31,9 @@ public class DAW extends AppCompatActivity {
     Node root = new Node();
     final int numChords = 4;
     boolean playing = false;
+
+    // TODO: hey Jared I bet this was really HARD to CODE
+    // TODO: hahehehaheuaheuheuheuheuhueh
     TextView chord1Name;
     TextView chord1Notes;
     TextView chord2Name;
@@ -43,13 +44,12 @@ public class DAW extends AppCompatActivity {
     TextView chord4Notes;
 
     ArrayList<Sequence> tracks = new ArrayList<>();
-    Sequence drums = new Sequence();
+    Sequence drums = new Sequence(1, 120);
 
     TextView[] chordNames;
     TextView[] chordNotes;
     Button[] progButtons;
 
-    // TODO: link with key picker
     ImageView c1;
     ImageView db1;
     ImageView d1;
@@ -112,6 +112,19 @@ public class DAW extends AppCompatActivity {
 
     ImageView[][] pianos;
 
+    private void resetPiano(int chordNum) {
+
+        for(ImageView key: pianos[chordNum]){
+            key.setImageResource(R.drawable.ic_rectangle);
+        }
+
+        pianos[chordNum][1].setImageResource(R.drawable.ic_black_key);
+        pianos[chordNum][3].setImageResource(R.drawable.ic_black_key);
+        pianos[chordNum][6].setImageResource(R.drawable.ic_black_key);
+        pianos[chordNum][8].setImageResource(R.drawable.ic_black_key);
+        pianos[chordNum][10].setImageResource(R.drawable.ic_black_key);
+    }
+
     Theory.note key = Theory.note.C;
     Theory.type degree = Theory.type.major;
     ProgElement prog[] = {
@@ -121,11 +134,16 @@ public class DAW extends AppCompatActivity {
             new ProgElement(4, null)
     };
 
-    void setProgNum(int i, ProgElement element) {
+    /**
+     * A nice function to manage changing everything else when we want to edit the chord progression
+     * @param i: index of the chord we're changing in prog
+     * @param element: ProgElement to replace prog[i] with
+     */
+    void updateProgAt(int i, ProgElement element) {
         // change prog[i]
-        // update buttons
         prog[i] = element;
         Theory.chord thisGuy = prog[i].getChord();
+        // update buttons & other things
         progButtons[i].setText(thisGuy.toString());
         chordNames[i].setText(thisGuy.toString());
         chordNotes[i].setText(thisGuy.getNotesString());
@@ -163,6 +181,7 @@ public class DAW extends AppCompatActivity {
         TabHost host = (TabHost) findViewById(R.id.tabHost);
         host.setup();
 
+        // TODO: tabs go away when screen is tilted sideways
         //Tab 1
         TabHost.TabSpec spec = host.newTabSpec("Write");
         spec.setContent(R.id.tab1);
@@ -260,6 +279,9 @@ public class DAW extends AppCompatActivity {
 
         pianos = new ImageView[][]{piano1, piano2, piano3, piano4};
 
+        ///////////////////
+        // CHORD BUTTONS //
+        ///////////////////
         final Button chord1 = (Button) findViewById(R.id.chord1);
         chord1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -318,6 +340,9 @@ public class DAW extends AppCompatActivity {
 
         progButtons = new Button[]{chord1, chord2, chord3, chord4};
 
+        //////////////
+        // PLAYHEAD //
+        //////////////
         final ImageView playhead = (ImageView) findViewById(R.id.playhead);
         playhead.setVisibility(View.INVISIBLE);
         final TranslateAnimation animation = new TranslateAnimation(
@@ -350,6 +375,9 @@ public class DAW extends AppCompatActivity {
             }
         });
 
+        //////////////////
+        // TEMPO PICKER //
+        //////////////////
         NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
         numberPicker.setMinValue(40);
         numberPicker.setMaxValue(208);
@@ -368,6 +396,9 @@ public class DAW extends AppCompatActivity {
             }
         });
 
+        ////////////////
+        // KEY PICKER //
+        ////////////////
         NumberPicker keyPicker = (NumberPicker) findViewById(R.id.keyPicker);
         final String[] notez = new String[Theory.note.values().length];
         for (int i = 0; i < notez.length; i++)
@@ -380,23 +411,16 @@ public class DAW extends AppCompatActivity {
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 Log.v("OLD", "" + oldVal);
                 Log.v("NEW", "" + newVal);
+                key = Theory.note.values()[newVal];
+                for (int i = 0; i < prog.length; i++)
+                    updateProgAt(i, prog[i]);
             }
         });
     }
 
-    private void resetPiano(int chordNum) {
-
-        for(ImageView key: pianos[chordNum]){
-            key.setImageResource(R.drawable.ic_rectangle);
-        }
-
-        pianos[chordNum][1].setImageResource(R.drawable.ic_black_key);
-        pianos[chordNum][3].setImageResource(R.drawable.ic_black_key);
-        pianos[chordNum][6].setImageResource(R.drawable.ic_black_key);
-        pianos[chordNum][8].setImageResource(R.drawable.ic_black_key);
-        pianos[chordNum][10].setImageResource(R.drawable.ic_black_key);
-    }
-
+    ///////////////////////////
+    // CHORD SELECTOR DIALOG //
+    ///////////////////////////
     private void chordSelectorDialog(final int chordNum, final Button thisguy) {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.chord_picker);
@@ -443,7 +467,7 @@ public class DAW extends AppCompatActivity {
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setProgNum(chordNum, new ProgElement(i, null));
+                    updateProgAt(chordNum, new ProgElement(i, null));
                     dialog.dismiss();
                 }
             });
@@ -466,10 +490,10 @@ public class DAW extends AppCompatActivity {
                 int scaleStep = chord.isPartOf(key);
                 // if the chord fits into our scale
                 if (scaleStep != 0) {
-                    setProgNum(chordNum, new ProgElement(scaleStep, null));
+                    updateProgAt(chordNum, new ProgElement(scaleStep, null));
                 }
                 else {
-                    setProgNum(chordNum, new ProgElement(0, chord));
+                    updateProgAt(chordNum, new ProgElement(0, chord));
                 }
 
                 dialog.dismiss();
@@ -562,7 +586,14 @@ public class DAW extends AppCompatActivity {
     }
 
     private void fillTracks(){
-        drums.addSound(MediaPlayer.create(this, R.raw.test), 0);
+        for(int i=0;i<2;i++) {
+            drums.addSound(MediaPlayer.create(this, R.raw.kick), i*4+0);
+            drums.addSound(MediaPlayer.create(this, R.raw.hat), i*4+2);
+            drums.addSound(MediaPlayer.create(this, R.raw.snare), i*4+4);
+            drums.addSound(MediaPlayer.create(this, R.raw.kick), i*4+4);
+            drums.addSound(MediaPlayer.create(this, R.raw.hat), i*4+6);
+        }
+
         tracks.add(drums);
     }
 
