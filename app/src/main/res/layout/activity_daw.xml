@@ -134,7 +134,6 @@
                                 android:layout_marginTop="-3dp"
                                 android:adjustViewBounds="false"
                                 android:background="@color/bg2"
-                                android:cropToPadding="false"
                                 android:paddingLeft="3dp"
                                 android:scaleType="fitStart"
                                 app:srcCompat="@drawable/ic_looks_one_black_24dp" />
@@ -164,12 +163,11 @@
                                     android:layout_marginTop="-5dp"
                                     android:adjustViewBounds="false"
                                     android:background="@color/bg2"
-                                    android:gravity="center_vertical"
-                                    android:paddingLeft="6dp"
+                                    android:gravity="center"
                                     android:text="Cm"
                                     android:textColor="@color/white"
-                                    android:textSize="24sp"
-                                    android:textStyle="italic" />
+                                    android:textSize="26sp"
+                                    android:textStyle="bold|italic" />
 
                             </TableRow>
 
@@ -215,12 +213,11 @@
                                     android:layout_marginTop="-5dp"
                                     android:adjustViewBounds="false"
                                     android:background="@color/bg"
-                                    android:gravity="center_vertical"
-                                    android:paddingLeft="6dp"
+                                    android:gravity="center"
                                     android:text="Cm"
                                     android:textColor="@color/white"
-                                    android:textSize="24sp"
-                                    android:textStyle="italic" />
+                                    android:textSize="26sp"
+                                    android:textStyle="bold|italic" />
 
                             </TableRow>
 
@@ -266,12 +263,11 @@
                                     android:layout_marginTop="-5dp"
                                     android:adjustViewBounds="false"
                                     android:background="@color/bg2"
-                                    android:gravity="center_vertical"
-                                    android:paddingLeft="6dp"
+                                    android:gravity="center"
                                     android:text="Cm"
                                     android:textColor="@color/white"
-                                    android:textSize="24sp"
-                                    android:textStyle="italic" />
+                                    android:textSize="26sp"
+                                    android:textStyle="bold|italic" />
 
                             </TableRow>
 
@@ -317,12 +313,11 @@
                                     android:layout_marginTop="-5dp"
                                     android:adjustViewBounds="false"
                                     android:background="@color/bg"
-                                    android:gravity="center_vertical"
-                                    android:paddingLeft="6dp"
+                                    android:gravity="center"
                                     android:text="Cm"
                                     android:textColor="@color/white"
-                                    android:textSize="24sp"
-                                    android:textStyle="italic" />
+                                    android:textSize="26sp"
+                                    android:textStyle="bold|italic" />
 
                             </TableRow>
                         </TableLayout>
