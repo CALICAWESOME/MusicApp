@@ -44,7 +44,9 @@ public class DAW extends AppCompatActivity {
 
     TextView[] chordNames;
     TextView[] chordNotes;
+    Button[] progButtons;
 
+    // TODO: link with key picker
     Theory.note key = Theory.note.C;
     Theory.type degree = Theory.type.major;
     ProgElement prog[] = {
@@ -53,6 +55,16 @@ public class DAW extends AppCompatActivity {
             new ProgElement(6, null),
             new ProgElement(4, null)
     };
+
+    void setProgNum(int i, ProgElement element) {
+        // change prog[i]
+        // update buttons
+        prog[i] = element;
+        Theory.chord thisGuy = prog[i].getChord();
+        progButtons[i].setText(thisGuy.toString());
+        chordNames[i].setText(thisGuy.toString());
+        chordNotes[i].setText(thisGuy.getNotesString());
+    }
 
     private class ProgElement {
         int scaleStep;
@@ -161,6 +173,8 @@ public class DAW extends AppCompatActivity {
         chord4Name.setText(prog[3].getChord().toString());
         chord4Notes.setText(prog[3].getChord().getNotesString());
 
+        progButtons = new Button[]{chord1, chord2, chord3, chord4};
+
         final ImageView playhead = (ImageView) findViewById(R.id.playhead);
         playhead.setVisibility(View.INVISIBLE);
         final TranslateAnimation animation = new TranslateAnimation(
@@ -251,7 +265,6 @@ public class DAW extends AppCompatActivity {
         rootPick.setValue(yeChord.root.getVal());
         spinner.setSelection(spinnerAdapter.getPosition(yeChord.type.toString()));
 
-        // TODO: add suggestions here!!!!!!!!
         int[] suggs = getSugg(chordNum);
         LayoutInflater inflater =  getLayoutInflater();
         TableLayout suggTable = (TableLayout) dialog.findViewById(R.id.suggsTable);
@@ -267,8 +280,7 @@ public class DAW extends AppCompatActivity {
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    prog[chordNum].scaleStep = i;
-                    thisguy.setText(chord.toString());
+                    setProgNum(chordNum, new ProgElement(i, null));
                     dialog.dismiss();
                 }
             });
@@ -284,18 +296,15 @@ public class DAW extends AppCompatActivity {
                 Theory.chord chord = new Theory.chord(
                         Theory.note.values()[rootIndex],
                         Theory.type.values()[typeIndex]);
-                thisguy.setText(chord.toString());
-                chordNames[chordNum].setText(chord.toString());
-                chordNotes[chordNum].setText(prog[chordNum].getChord().getNotesString());
                 // set current chord in prog
                 // translate to number??!?!??
                 int scaleStep = chord.isPartOf(key);
                 // if the chord fits into our scale
                 if (scaleStep != 0) {
-                    prog[chordNum] = new ProgElement(scaleStep, null);
+                    setProgNum(chordNum, new ProgElement(scaleStep, null));
                 }
                 else {
-                    prog[chordNum] = new ProgElement(0, chord);
+                    setProgNum(chordNum, new ProgElement(0, chord));
                 }
 
                 dialog.dismiss();
