@@ -2,8 +2,6 @@ package edu.wit.mobileapp.musicapp;
 
 import android.app.Dialog;
 import android.media.MediaPlayer;
-import android.graphics.PorterDuff;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -49,7 +47,6 @@ public class DAW extends AppCompatActivity {
     TextView[] chordNotes;
     Button[] progButtons;
 
-    // TODO: link with key picker
     ImageView c1;
     ImageView db1;
     ImageView d1;
@@ -112,6 +109,7 @@ public class DAW extends AppCompatActivity {
 
     ImageView[][] pianos;
 
+    // TODO: link with key picker
     Theory.note key = Theory.note.C;
     Theory.type degree = Theory.type.major;
     ProgElement prog[] = {
@@ -121,7 +119,7 @@ public class DAW extends AppCompatActivity {
             new ProgElement(4, null)
     };
 
-    void setProgNum(int i, ProgElement element) {
+    void updateProgAt(int i, ProgElement element) {
         // change prog[i]
         // update buttons
         prog[i] = element;
@@ -318,6 +316,9 @@ public class DAW extends AppCompatActivity {
 
         progButtons = new Button[]{chord1, chord2, chord3, chord4};
 
+        //////////////
+        // PLAYHEAD //
+        //////////////
         final ImageView playhead = (ImageView) findViewById(R.id.playhead);
         playhead.setVisibility(View.INVISIBLE);
         final TranslateAnimation animation = new TranslateAnimation(
@@ -350,6 +351,9 @@ public class DAW extends AppCompatActivity {
             }
         });
 
+        //////////////////
+        // TEMPO PICKER //
+        //////////////////
         NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
         numberPicker.setMinValue(40);
         numberPicker.setMaxValue(208);
@@ -368,6 +372,9 @@ public class DAW extends AppCompatActivity {
             }
         });
 
+        ////////////////
+        // KEY PICKER //
+        ////////////////
         NumberPicker keyPicker = (NumberPicker) findViewById(R.id.keyPicker);
         final String[] notez = new String[Theory.note.values().length];
         for (int i = 0; i < notez.length; i++)
@@ -380,6 +387,9 @@ public class DAW extends AppCompatActivity {
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 Log.v("OLD", "" + oldVal);
                 Log.v("NEW", "" + newVal);
+                key = Theory.note.values()[newVal];
+                for (int i = 0; i < prog.length; i++)
+                    updateProgAt(i, prog[i]);
             }
         });
     }
@@ -397,6 +407,9 @@ public class DAW extends AppCompatActivity {
         pianos[chordNum][10].setImageResource(R.drawable.ic_black_key);
     }
 
+    ///////////////////////////
+    // CHORD SELECTOR DIALOG //
+    ///////////////////////////
     private void chordSelectorDialog(final int chordNum, final Button thisguy) {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.chord_picker);
@@ -443,7 +456,7 @@ public class DAW extends AppCompatActivity {
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setProgNum(chordNum, new ProgElement(i, null));
+                    updateProgAt(chordNum, new ProgElement(i, null));
                     dialog.dismiss();
                 }
             });
@@ -466,10 +479,10 @@ public class DAW extends AppCompatActivity {
                 int scaleStep = chord.isPartOf(key);
                 // if the chord fits into our scale
                 if (scaleStep != 0) {
-                    setProgNum(chordNum, new ProgElement(scaleStep, null));
+                    updateProgAt(chordNum, new ProgElement(scaleStep, null));
                 }
                 else {
-                    setProgNum(chordNum, new ProgElement(0, chord));
+                    updateProgAt(chordNum, new ProgElement(0, chord));
                 }
 
                 dialog.dismiss();
