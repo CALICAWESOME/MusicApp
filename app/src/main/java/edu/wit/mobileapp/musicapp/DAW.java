@@ -27,6 +27,17 @@ public class DAW extends AppCompatActivity {
     Node root = new Node();
     final int numChords = 4;
     boolean playing = false;
+    TextView chord1Name;
+    TextView chord1Notes;
+    TextView chord2Name;
+    TextView chord2Notes;
+    TextView chord3Name;
+    TextView chord3Notes;
+    TextView chord4Name;
+    TextView chord4Notes;
+
+    TextView[] chordNames;
+    TextView[] chordNotes;
 
     Theory.note key = Theory.note.C;
     Theory.type degree = Theory.type.major;
@@ -89,6 +100,18 @@ public class DAW extends AppCompatActivity {
         // fill trie with data from prog.txt
         fillTrie();
 
+        chord1Name = (TextView) findViewById(R.id.chord1Name);
+        chord1Notes = (TextView) findViewById(R.id.chord1Notes);
+        chord2Name = (TextView) findViewById(R.id.chord2Name);
+        chord2Notes = (TextView) findViewById(R.id.chord2Notes);
+        chord3Name = (TextView) findViewById(R.id.chord3Name);
+        chord3Notes = (TextView) findViewById(R.id.chord3Notes);
+        chord4Name = (TextView) findViewById(R.id.chord4Name);
+        chord4Notes = (TextView) findViewById(R.id.chord4notes);
+
+        chordNames = new TextView[]{chord1Name, chord2Name, chord3Name, chord4Name};
+        chordNotes = new TextView[]{chord1Notes, chord2Notes, chord3Notes, chord4Notes};
+
         final Button chord1 = (Button) findViewById(R.id.chord1);
         chord1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +120,8 @@ public class DAW extends AppCompatActivity {
             }
         });
         chord1.setText(prog[0].getChord().toString());
+        chord1Name.setText(prog[0].getChord().toString());
+        chord1Notes.setText(prog[0].getChord().getNotesString());
 
         final Button chord2 = (Button) findViewById(R.id.chord2);
         chord2.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +131,8 @@ public class DAW extends AppCompatActivity {
             }
         });
         chord2.setText(prog[1].getChord().toString());
+        chord2Name.setText(prog[1].getChord().toString());
+        chord2Notes.setText(prog[1].getChord().getNotesString());
 
         final Button chord3 = (Button) findViewById(R.id.chord3);
         chord3.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +142,8 @@ public class DAW extends AppCompatActivity {
             }
         });
         chord3.setText(prog[2].getChord().toString());
+        chord3Name.setText(prog[2].getChord().toString());
+        chord3Notes.setText(prog[2].getChord().getNotesString());
 
         final Button chord4 = (Button) findViewById(R.id.chord4);
         chord4.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +153,8 @@ public class DAW extends AppCompatActivity {
             }
         });
         chord4.setText(prog[3].getChord().toString());
+        chord4Name.setText(prog[3].getChord().toString());
+        chord4Notes.setText(prog[3].getChord().getNotesString());
 
         final ImageView playhead = (ImageView) findViewById(R.id.playhead);
         playhead.setVisibility(View.INVISIBLE);
@@ -220,6 +251,8 @@ public class DAW extends AppCompatActivity {
                         Theory.note.values()[rootIndex],
                         Theory.type.values()[typeIndex]);
                 thisguy.setText(chord.toString());
+                chordNames[chordNum].setText(chord.toString());
+                chordNotes[chordNum].setText(prog[chordNum].getChord().getNotesString());
                 // set current chord in prog
                 // translate to number??!?!??
                 int scaleStep = chord.isPartOf(key);

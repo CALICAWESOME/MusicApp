@@ -77,6 +77,17 @@ class Theory {
                     return i + 1;
             return 0;
         }
+
+        String getNotesString() {
+            String ret = "";
+
+            for (note n: getNotes()) {
+                ret+=n.name();
+                ret+="  ";
+            }
+
+            return ret;
+        }
         @Override
         public String toString() {
             String typeabbr = "";
