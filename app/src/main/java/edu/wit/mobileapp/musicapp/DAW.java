@@ -7,6 +7,7 @@ import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -41,7 +42,7 @@ public class DAW extends AppCompatActivity {
     TextView chord4Name;
     TextView chord4Notes;
 
-    ArrayList<Sequence> tracks = new ArrayList<Sequence>();
+    ArrayList<Sequence> tracks = new ArrayList<>();
     Sequence drums = new Sequence();
 
     TextView[] chordNames;
@@ -128,6 +129,10 @@ public class DAW extends AppCompatActivity {
         progButtons[i].setText(thisGuy.toString());
         chordNames[i].setText(thisGuy.toString());
         chordNotes[i].setText(thisGuy.getNotesString());
+        resetPiano(i);
+        for(Theory.note n : prog[i].getChord().getNotes()){
+            pianos[i][n.getVal()].setImageResource(R.drawable.ic_key_selected);
+        }
     }
 
     private class ProgElement {
@@ -370,6 +375,13 @@ public class DAW extends AppCompatActivity {
         keyPicker.setMinValue(0);
         keyPicker.setMaxValue(notez.length-1);
         keyPicker.setDisplayedValues(notez);
+        keyPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                Log.v("OLD", "" + oldVal);
+                Log.v("NEW", "" + newVal);
+            }
+        });
     }
 
     private void resetPiano(int chordNum) {
@@ -458,14 +470,6 @@ public class DAW extends AppCompatActivity {
                 }
                 else {
                     setProgNum(chordNum, new ProgElement(0, chord));
-                }
-
-                chordNames[chordNum].setText(chord.toString());
-                chordNotes[chordNum].setText(prog[chordNum].getChord().getNotesString());
-
-                resetPiano(chordNum);
-                for(Theory.note n:prog[chordNum].getChord().getNotes()){
-                    pianos[chordNum][n.getVal()].setImageResource(R.drawable.ic_key_selected);
                 }
 
                 dialog.dismiss();
