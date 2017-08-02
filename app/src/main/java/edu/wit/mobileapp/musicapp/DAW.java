@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.TabHost;
 
@@ -249,7 +251,29 @@ public class DAW extends AppCompatActivity {
         rootPick.setValue(yeChord.root.getVal());
         spinner.setSelection(spinnerAdapter.getPosition(yeChord.type.toString()));
 
-        // add suggestions here!!!!!!!!
+        // TODO: add suggestions here!!!!!!!!
+        int[] suggs = getSugg(chordNum);
+        LayoutInflater inflater =  getLayoutInflater();
+        TableLayout suggTable = (TableLayout) dialog.findViewById(R.id.suggsTable);
+        for (final int i : suggs) {
+            // turn the number into a chord
+            // - get suggs
+            final Theory.chord chord = Theory.num2Chord(i, key);
+            // - add suggs to dialog
+            // >>> look up how to do this, yo
+            View suggRow = inflater.inflate(R.layout.suggestion_row, null);
+            Button b = (Button)suggRow.findViewById(R.id.suggButt);
+            b.setText(chord.toString());
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    prog[chordNum].scaleStep = i;
+                    thisguy.setText(chord.toString());
+                    dialog.dismiss();
+                }
+            });
+            suggTable.addView(suggRow);
+        }
 
         Button done = (Button) dialog.findViewById(R.id.done);
         done.setOnClickListener(new View.OnClickListener() {
@@ -341,7 +365,7 @@ public class DAW extends AppCompatActivity {
     }
 
     private int[] getSuggRecursive(Node curr, int chordNum, int i) {
-        if (curr == null || i == 0) {
+        if (curr == null) {
             return new int[0];
         }
         if (i < chordNum)
