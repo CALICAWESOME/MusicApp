@@ -1,13 +1,9 @@
 package edu.wit.mobileapp.musicapp;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -25,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class DAW extends AppCompatActivity {
 
@@ -33,10 +28,32 @@ public class DAW extends AppCompatActivity {
     final int numChords = 4;
     boolean playing = false;
 
-    Theory.note key = Theory.note.Eb;
+    Theory.note key = Theory.note.C;
     Theory.type degree = Theory.type.major;
     // TODO: sync this with DAW buttons (see line 45)
-    int prog[] = new int[numChords];
+    ProgElement prog[] = {
+            new ProgElement(1, null),
+            new ProgElement(5, null),
+            new ProgElement(6, null),
+            new ProgElement(4, null)
+    };
+
+    private class ProgElement {
+        int scaleStep;
+        private Theory.chord chord;
+        // constructor
+        ProgElement(int scaleStep, Theory.chord chord) {
+            this.scaleStep = scaleStep;
+            this.chord = chord;
+        }
+        // getChord
+        Theory.chord getChord() {
+            if (scaleStep != 0)
+                return Theory.num2Chord(scaleStep, key);
+            else
+                return chord;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,46 +93,37 @@ public class DAW extends AppCompatActivity {
         chord1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chordSelectorDialog(1, chord1);
+                chordSelectorDialog(0, chord1);
             }
         });
+        chord1.setText(prog[0].getChord().toString());
 
         final Button chord2 = (Button) findViewById(R.id.chord2);
         chord2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chordSelectorDialog(2, chord2);
+                chordSelectorDialog(1, chord2);
             }
         });
+        chord2.setText(prog[1].getChord().toString());
 
         final Button chord3 = (Button) findViewById(R.id.chord3);
         chord3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chordSelectorDialog(3, chord3);
+                chordSelectorDialog(2, chord3);
             }
         });
+        chord3.setText(prog[2].getChord().toString());
 
         final Button chord4 = (Button) findViewById(R.id.chord4);
         chord4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chordSelectorDialog(4, chord4);
+                chordSelectorDialog(3, chord4);
             }
         });
-
-        Random rand = new Random();
-        prog[0] = 1;
-        int boi[] = getSugg(1);
-        prog[1] = boi[rand.nextInt(boi.length)];
-        boi = getSugg(2);
-        prog[2] = boi[rand.nextInt(boi.length)];
-        boi = getSugg(3);
-        prog[3] = boi[rand.nextInt(boi.length)];
-
-        for (int i : prog) {
-            Log.v("HEY", Theory.num2Chord(i, key).toString());
-        }
+        chord4.setText(prog[3].getChord().toString());
 
         final ImageView playhead = (ImageView) findViewById(R.id.playhead);
         playhead.setVisibility(View.INVISIBLE);
@@ -147,8 +155,8 @@ public class DAW extends AppCompatActivity {
         });
 
         NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
-        numberPicker.setMinValue(70);
-        numberPicker.setMaxValue(200);
+        numberPicker.setMinValue(40);
+        numberPicker.setMaxValue(208);
         numberPicker.setValue(120); // default
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
@@ -173,11 +181,11 @@ public class DAW extends AppCompatActivity {
     }
 
     // TODO: make this work for selecting chords and getting suggestions
-    private void chordSelectorDialog(int chordNum, final Button thisguy) {
+    private void chordSelectorDialog(final int chordNum, final Button thisguy) {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.chord_picker);
         TextView t = (TextView) dialog.findViewById(R.id.textView2);
-        final String chordX = "CHORD " + chordNum;
+        final String chordX = "CHORD " + (chordNum+1);
         t.setText(chordX);
 
         // root picker
@@ -190,9 +198,17 @@ public class DAW extends AppCompatActivity {
         rootPick.setDisplayedValues(notez);
 
         // type picker
+        // TODO: fix fucking autocomplete in number spinners, specifically flats here
         final Spinner spinner = (Spinner) dialog.findViewById(R.id.chordTypePicker);
         String[] types = {"major", "minor", "diminished"};
-        spinner.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, types));
+        ArrayAdapter spinnerAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, types);
+        spinner.setAdapter(spinnerAdapter);
+
+        // set initial root & type
+        // if we know this chord fits into the scale
+        Theory.chord yeChord = prog[chordNum].getChord();
+        rootPick.setValue(yeChord.root.getVal());
+        spinner.setSelection(spinnerAdapter.getPosition(yeChord.type.toString()));
 
         Button done = (Button) dialog.findViewById(R.id.done);
         done.setOnClickListener(new View.OnClickListener() {
@@ -200,12 +216,21 @@ public class DAW extends AppCompatActivity {
             public void onClick(View v) {
                 int rootIndex = rootPick.getValue();
                 int typeIndex = spinner.getSelectedItemPosition();
-                Theory.chord newButtonText = new Theory.chord(
+                Theory.chord chord = new Theory.chord(
                         Theory.note.values()[rootIndex],
                         Theory.type.values()[typeIndex]);
-                thisguy.setText(newButtonText.toString());
+                thisguy.setText(chord.toString());
                 // set current chord in prog
                 // translate to number??!?!??
+                int scaleStep = chord.isPartOf(key);
+                // if the chord fits into our scale
+                if (scaleStep != 0) {
+                    prog[chordNum] = new ProgElement(scaleStep, null);
+                }
+                else {
+                    prog[chordNum] = new ProgElement(0, chord);
+                }
+
                 dialog.dismiss();
             }
         });
@@ -264,7 +289,7 @@ public class DAW extends AppCompatActivity {
     /**
      * getSugg gets suggestions for the next chord to come in the progression. Suggestions are made
      * for chord number chordNum in the progression.
-     * @param chordNum get suggestions for the chord to come after this chord in the progression
+     * @param chordNum "get suggestions for chord #..." (index, 0-3)
      * @return an array of suggested chords, each number is the root of the chord relative to the
      * tonic of the key
      */
@@ -273,11 +298,11 @@ public class DAW extends AppCompatActivity {
     }
 
     private int[] getSuggRecursive(Node curr, int chordNum, int i) {
-        if (curr == null) {
+        if (curr == null || i == 0) {
             return new int[0];
         }
         if (i < chordNum)
-            return getSuggRecursive(curr.next[prog[i]-1], chordNum, i+1);
+            return getSuggRecursive(curr.next[prog[i].scaleStep-1], chordNum, i+1);
 
         // ret will be converted into an array of ints
         ArrayList<Integer> ret = new ArrayList<>();

@@ -2,6 +2,7 @@ package edu.wit.mobileapp.musicapp;
 
 class Theory {
 
+    // forces unicode character and not emoji
     static String nonEmojiFlat = "\u266D\uFE0E";
 
     enum note {
@@ -17,20 +18,31 @@ class Theory {
         note addHalfSteps(int i) {
             return note.values()[(this.getVal() + i) % note.values().length];
         }
+
+        /**
+         * @param t: interval type (major, minor, perfect, tritone)
+         * @param interval: interval number, like a 7th or a 4th
+         * @return note of that interval
+         */
         note getInterval(type t, int interval) {
             // catch perfect 4ths, 5ths and tritones
-            final int[] halfSteps = {0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17, 19, 21};
-            int intervalIndex = interval-1;
+            int halfStepIndex = interval-1;
             switch (t) {
                 // STILL TODO: catch fourths and fifths
                 case tritone:
                     return this.addHalfSteps(6);
                 case major:
-                    return this.addHalfSteps(halfSteps[intervalIndex]);
+                    return this.addHalfSteps(halfSteps[halfStepIndex]);
                 case minor:
-                    return this.addHalfSteps(halfSteps[intervalIndex]-1);
+                    return this.addHalfSteps(halfSteps[halfStepIndex]-1);
             }
             return this;
+        }
+        int halfStepsDownTo(note n) {
+            if (this.getVal() > n.getVal())
+                return this.getVal() - n.getVal();
+            else
+                return this.getVal() + 12 - n.getVal();
         }
     }
 
@@ -40,6 +52,10 @@ class Theory {
 
     static final private type[] majorScaleTypes = {
             type.major, type.minor, type.minor, type.major, type.major, type.minor, type.diminished
+    };
+
+    static final private int[] halfSteps = {
+            0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17, 19, 21
     };
 
     static class chord {
@@ -52,6 +68,14 @@ class Theory {
         }
         note[] getNotes() {
             return buildChord(root, type);
+        }
+        int isPartOf(note key) {
+            int halfStepDiff = this.root.halfStepsDownTo(key);
+            for (int i = 0; i < majorScaleTypes.length; i++)
+                // halfSteps contains the interval in half steps and the scale type is correct for that interval
+                if (halfStepDiff == halfSteps[i] && majorScaleTypes[i] == type)
+                    return i + 1;
+            return 0;
         }
         @Override
         public String toString() {
@@ -95,10 +119,12 @@ class Theory {
     }
 
     public static void main(String[] args) {
-        Theory.chord chord = new chord(note.Bb, type.diminished);
-        for (note n : chord.getNotes()) {
-            System.out.println(n);
-        }
+
+        chord hey = new chord(note.Ab, type.major);
+        int ass = hey.isPartOf(note.G);
+
+        return;
+
     }
 
 }

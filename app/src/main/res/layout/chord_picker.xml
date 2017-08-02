@@ -23,7 +23,9 @@
         <NumberPicker
             android:id="@+id/chordRootPicker"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="textFilter"
+            android:descendantFocusability="blocksDescendants" />
 
         <Spinner
             android:id="@+id/chordTypePicker"
