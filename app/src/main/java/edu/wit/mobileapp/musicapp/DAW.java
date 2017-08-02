@@ -41,7 +41,7 @@ public class DAW extends AppCompatActivity {
     TextView chord4Notes;
 
     ArrayList<Sequence> tracks = new ArrayList<>();
-    Sequence drums = new Sequence();
+    Sequence drums = new Sequence(1, 120);
 
     TextView[] chordNames;
     TextView[] chordNotes;
@@ -575,7 +575,14 @@ public class DAW extends AppCompatActivity {
     }
 
     private void fillTracks(){
-        drums.addSound(MediaPlayer.create(this, R.raw.test), 0);
+        for(int i=0;i<2;i++) {
+            drums.addSound(MediaPlayer.create(this, R.raw.kick), i*4+0);
+            drums.addSound(MediaPlayer.create(this, R.raw.hat), i*4+2);
+            drums.addSound(MediaPlayer.create(this, R.raw.snare), i*4+4);
+            drums.addSound(MediaPlayer.create(this, R.raw.kick), i*4+4);
+            drums.addSound(MediaPlayer.create(this, R.raw.hat), i*4+6);
+        }
+
         tracks.add(drums);
     }
 
