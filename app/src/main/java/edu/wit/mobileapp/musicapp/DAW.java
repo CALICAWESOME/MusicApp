@@ -1,6 +1,7 @@
 package edu.wit.mobileapp.musicapp;
 
 import android.app.Dialog;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -35,6 +36,9 @@ public class DAW extends AppCompatActivity {
     TextView chord3Notes;
     TextView chord4Name;
     TextView chord4Notes;
+
+    ArrayList<Sequence> tracks = new ArrayList<Sequence>();
+    Sequence drums = new Sequence();
 
     TextView[] chordNames;
     TextView[] chordNotes;
@@ -166,18 +170,21 @@ public class DAW extends AppCompatActivity {
         animation.setDuration(8000);
         animation.setInterpolator(new LinearInterpolator());
         final ImageView playButton = (ImageView) findViewById(R.id.play);
+        fillTracks(); //create drum sequence
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(playing){
                     playButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                     playing = false;
+                    //pauseTracks();
                     playhead.setVisibility(View.INVISIBLE);
                     playhead.clearAnimation();
                 }
                 else{
                     playButton.setImageResource(R.drawable.ic_pause_black_24dp);
                     playing = true;
+                    //playTracks();
                     playhead.setVisibility(View.VISIBLE);
                     playhead.startAnimation(animation);
                 }
@@ -198,6 +205,7 @@ public class DAW extends AppCompatActivity {
                     playhead.clearAnimation();
                 }
                 animation.setDuration(16000*60/i2);
+                updateBpm(i2);
             }
         });
 
@@ -353,5 +361,28 @@ public class DAW extends AppCompatActivity {
             realret[j] = ret.get(j)+1;
 
         return realret;
+    }
+
+    private void fillTracks(){
+        drums.addSound(MediaPlayer.create(this, R.raw.test), 0);
+        tracks.add(drums);
+    }
+
+    private void playTracks(){
+        for(Sequence track : tracks){
+            track.play();
+        }
+    }
+
+    private void pauseTracks(){
+        for(Sequence track : tracks){
+            track.pause();
+        }
+    }
+
+    private void updateBpm(int bpm){
+        for(Sequence track : tracks){
+            track.setBpm(bpm);
+        }
     }
 }

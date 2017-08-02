@@ -24,18 +24,18 @@ public class Sequence implements Runnable{
 
     public Sequence(){
         this.setBpm(120);
-        sounds = (ArrayList<MediaPlayer>[])new ArrayList[numOfMeasures*16];
+        init();
     }
 
     public Sequence(int bpm){
         this.setBpm(bpm);
-        sounds = (ArrayList<MediaPlayer>[])new ArrayList[numOfMeasures*16];
+        init();
     }
 
     public Sequence(int measures, int bpm){
         numOfMeasures = measures;
         this.setBpm(bpm);
-        sounds = (ArrayList<MediaPlayer>[])new ArrayList[numOfMeasures*16];
+        init();
     }
 
     public void setBpm(int x){
@@ -46,9 +46,17 @@ public class Sequence implements Runnable{
         maxTime = tick * numOfMeasures * 16;
     }
 
+    private void init(){
+        sounds = (ArrayList<MediaPlayer>[])new ArrayList[numOfMeasures*16];
+        for (int i=0;i<sounds.length;i++){
+            sounds[i] = new ArrayList<MediaPlayer>();
+        }
+    }
+
     //adds a mediaplayer sound object that will play at step t (Ex: if t = 4, the sound will play on the 2nd beat)
     public void addSound(MediaPlayer x, int t){
         this.pause();
+
         sounds[t].add(x);
     }
 
@@ -118,6 +126,7 @@ public class Sequence implements Runnable{
                     }
                 }
             }
+            currentTime = 0.0;
             //kill thread
             //thread will be killed by isPlaying flag
         }
