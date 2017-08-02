@@ -79,8 +79,11 @@ class Theory {
         }
         String getNotesString() {
             String ret = "";
-            for (note n: getNotes()) {
-                ret+=n.name();
+            for (int i=0; i<getNotes().length; i++) {
+                ret+=getNotes()[i].name();
+                if(i < getNotes().length-1) {
+                    ret += "\n";
+                }
             }
             return ret;
         }

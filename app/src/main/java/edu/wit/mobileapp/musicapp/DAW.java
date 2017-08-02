@@ -188,7 +188,7 @@ public class DAW extends AppCompatActivity {
         chord3Name = (TextView) findViewById(R.id.chord3Name);
         chord3Notes = (TextView) findViewById(R.id.chord3Notes);
         chord4Name = (TextView) findViewById(R.id.chord4Name);
-        chord4Notes = (TextView) findViewById(R.id.chord4notes);
+        chord4Notes = (TextView) findViewById(R.id.chord4Notes);
 
         chordNames = new TextView[]{chord1Name, chord2Name, chord3Name, chord4Name};
         chordNotes = new TextView[]{chord1Notes, chord2Notes, chord3Notes, chord4Notes};
