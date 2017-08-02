@@ -81,7 +81,6 @@ class Theory {
             String ret = "";
             for (note n: getNotes()) {
                 ret+=n.name();
-                ret+="  ";
             }
             return ret;
         }

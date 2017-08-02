@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="25dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
         android:text="@string/chord_pick"
-        android:textSize="20sp"
-        android:gravity="center"/>
+        android:textSize="20sp" />
 
     <LinearLayout
         android:id="@+id/pickersGoHere"
@@ -30,7 +31,8 @@
         <Spinner
             android:id="@+id/chordTypePicker"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="start" />
 
     </LinearLayout>
 
@@ -43,9 +45,10 @@
         android:id="@+id/done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OK COOL"
+        android:layout_below="@+id/pickersGoHere"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/pickersGoHere" />
+        android:layout_marginBottom="20dp"
+        android:text="OK COOL" />
 
 
 </RelativeLayout>

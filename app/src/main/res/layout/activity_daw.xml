@@ -125,33 +125,6 @@
                             <TableRow
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginTop="-3dp"
-                                android:background="@color/gray2">
-
-                                <ImageView
-                                    android:id="@+id/imageView32"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="20dp"
-                                    android:adjustViewBounds="false"
-                                    android:background="@color/bg2"
-                                    android:paddingLeft="3dp"
-                                    android:scaleType="fitStart"
-                                    app:srcCompat="@drawable/ic_looks_one_black_24dp" />
-
-                                <TextView
-                                    android:id="@+id/chord1Notes"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:paddingLeft="8dp"
-                                    android:text="Chord 1"
-                                    android:textColor="@color/bg"
-                                    android:textSize="14sp" />
-
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:background="@color/gray2">
 
@@ -159,42 +132,178 @@
                                     android:id="@+id/chord1Name"
                                     android:layout_width="50dp"
                                     android:layout_height="match_parent"
-                                    android:layout_marginTop="-5dp"
+                                    android:layout_marginTop="-8dp"
                                     android:adjustViewBounds="false"
                                     android:background="@color/bg2"
-                                    android:gravity="center"
-                                    android:text="Cm"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:lineSpacingMultiplier="0.75"
+                                    android:text="Am"
                                     android:textColor="@color/white"
-                                    android:textSize="28sp"
+                                    android:textSize="20sp"
                                     android:textStyle="bold|italic" />
 
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@color/gray1">
-
-                                <ImageView
-                                    android:id="@+id/imageView33"
-                                    android:layout_width="50dp"
-                                    android:layout_height="25dp"
-                                    android:adjustViewBounds="false"
-                                    android:background="@color/bg"
-                                    android:paddingLeft="3dp"
-                                    android:paddingTop="5dp"
-                                    android:scaleType="fitStart"
-                                    app:srcCompat="@drawable/ic_looks_two_black_24dp" />
-
                                 <TextView
-                                    android:id="@+id/chord2Notes"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:id="@+id/chord1Notes"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.75"
+                                    android:gravity="fill_vertical|center_horizontal"
                                     android:paddingLeft="8dp"
-                                    android:paddingTop="5dp"
-                                    android:text="Chord 2"
+                                    android:text="Chord 1"
                                     android:textColor="@color/bg"
                                     android:textSize="14sp" />
+
+                                <ImageView
+                                    android:id="@+id/c1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/db1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/d1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/eb1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/e1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="4dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/f1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="4dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/gb1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/g1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/ab1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/a1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/bb1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/b1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
 
                             </TableRow>
 
@@ -208,42 +317,177 @@
                                     android:id="@+id/chord2Name"
                                     android:layout_width="50dp"
                                     android:layout_height="match_parent"
-                                    android:layout_marginTop="-5dp"
                                     android:adjustViewBounds="false"
                                     android:background="@color/bg"
                                     android:gravity="center"
-                                    android:text="Cm"
+                                    android:lineSpacingMultiplier="0.75"
+                                    android:text="Am"
                                     android:textColor="@color/white"
-                                    android:textSize="28sp"
+                                    android:textSize="20sp"
                                     android:textStyle="bold|italic" />
 
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@color/gray2">
-
-                                <ImageView
-                                    android:id="@+id/imageView34"
-                                    android:layout_width="50dp"
-                                    android:layout_height="25dp"
-                                    android:adjustViewBounds="false"
-                                    android:background="@color/bg2"
-                                    android:paddingLeft="3dp"
-                                    android:paddingTop="5dp"
-                                    android:scaleType="fitStart"
-                                    app:srcCompat="@drawable/ic_looks_3_black_24dp" />
-
                                 <TextView
-                                    android:id="@+id/chord3Notes"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:id="@+id/chord2Notes"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.75"
+                                    android:gravity="fill_vertical|center_horizontal"
                                     android:paddingLeft="8dp"
-                                    android:paddingTop="5dp"
-                                    android:text="Chord 3"
+                                    android:text="Chord 1"
                                     android:textColor="@color/bg"
                                     android:textSize="14sp" />
+
+                                <ImageView
+                                    android:id="@+id/c2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/db2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/d2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/eb2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/e2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="4dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/f2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="4dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/gb2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/g2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/ab2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/a2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/bb2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/b2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
 
                             </TableRow>
 
@@ -257,42 +501,176 @@
                                     android:id="@+id/chord3Name"
                                     android:layout_width="50dp"
                                     android:layout_height="match_parent"
-                                    android:layout_marginTop="-5dp"
-                                    android:adjustViewBounds="false"
                                     android:background="@color/bg2"
                                     android:gravity="center"
-                                    android:text="Cm"
+                                    android:lineSpacingMultiplier="0.75"
+                                    android:text="Abm"
                                     android:textColor="@color/white"
-                                    android:textSize="28sp"
+                                    android:textSize="20sp"
                                     android:textStyle="bold|italic" />
 
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@color/gray1">
-
-                                <ImageView
-                                    android:id="@+id/imageView35"
-                                    android:layout_width="50dp"
-                                    android:layout_height="25dp"
-                                    android:adjustViewBounds="false"
-                                    android:background="@color/bg"
-                                    android:paddingLeft="3dp"
-                                    android:paddingTop="5dp"
-                                    android:scaleType="fitStart"
-                                    app:srcCompat="@drawable/ic_looks_4_black_24dp" />
-
                                 <TextView
-                                    android:id="@+id/chord4notes"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:id="@+id/chord3Notes"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.75"
+                                    android:gravity="fill_vertical|center_horizontal"
                                     android:paddingLeft="8dp"
-                                    android:paddingTop="5dp"
-                                    android:text="Chord 4"
+                                    android:text="Chord 1"
                                     android:textColor="@color/bg"
                                     android:textSize="14sp" />
+
+                                <ImageView
+                                    android:id="@+id/c3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/db3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/d3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/eb3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/e3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="4dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/f3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="4dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/gb3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/g3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/ab3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/a3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/bb3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/b3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
 
                             </TableRow>
 
@@ -306,14 +684,177 @@
                                     android:id="@+id/chord4Name"
                                     android:layout_width="50dp"
                                     android:layout_height="match_parent"
-                                    android:layout_marginTop="-5dp"
                                     android:adjustViewBounds="false"
                                     android:background="@color/bg"
                                     android:gravity="center"
-                                    android:text="Cm"
+                                    android:lineSpacingMultiplier="0.75"
+                                    android:text="Am"
                                     android:textColor="@color/white"
-                                    android:textSize="28sp"
+                                    android:textSize="20sp"
                                     android:textStyle="bold|italic" />
+
+                                <TextView
+                                    android:id="@+id/chord4Notes"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="0.75"
+                                    android:gravity="fill_vertical|center_horizontal"
+                                    android:paddingLeft="8dp"
+                                    android:text="Chord 1"
+                                    android:textColor="@color/bg"
+                                    android:textSize="14sp" />
+
+                                <ImageView
+                                    android:id="@+id/c4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/db4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/d4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/eb4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/e4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="4dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/f4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="4dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/gb4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/g4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/ab4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/a4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
+
+                                <ImageView
+                                    android:id="@+id/bb4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="-16dp"
+                                    android:layout_marginRight="-16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="0.75"
+                                    android:adjustViewBounds="false"
+                                    android:elevation="24dp"
+                                    android:forceHasOverlappingRendering="false"
+                                    android:paddingBottom="20dp"
+                                    app:srcCompat="@drawable/ic_black_key" />
+
+                                <ImageView
+                                    android:id="@+id/b4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/ic_rectangle" />
 
                             </TableRow>
                         </TableLayout>

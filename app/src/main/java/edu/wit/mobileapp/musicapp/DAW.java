@@ -1,6 +1,8 @@
 package edu.wit.mobileapp.musicapp;
 
 import android.app.Dialog;
+import android.graphics.PorterDuff;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +40,68 @@ public class DAW extends AppCompatActivity {
 
     TextView[] chordNames;
     TextView[] chordNotes;
+
+    ImageView c1;
+    ImageView db1;
+    ImageView d1;
+    ImageView eb1;
+    ImageView e1;
+    ImageView f1;
+    ImageView gb1;
+    ImageView g1;
+    ImageView ab1;
+    ImageView a1;
+    ImageView bb1;
+    ImageView b1;
+
+    ImageView[] piano1;
+
+    ImageView c2;
+    ImageView db2;
+    ImageView d2;
+    ImageView eb2;
+    ImageView e2;
+    ImageView f2;
+    ImageView gb2;
+    ImageView g2;
+    ImageView ab2;
+    ImageView a2;
+    ImageView bb2;
+    ImageView b2;
+
+    ImageView[] piano2;
+
+    ImageView c3;
+    ImageView db3;
+    ImageView d3;
+    ImageView eb3;
+    ImageView e3;
+    ImageView f3;
+    ImageView gb3;
+    ImageView g3;
+    ImageView ab3;
+    ImageView a3;
+    ImageView bb3;
+    ImageView b3;
+
+    ImageView[] piano3;
+
+    ImageView c4;
+    ImageView db4;
+    ImageView d4;
+    ImageView eb4;
+    ImageView e4;
+    ImageView f4;
+    ImageView gb4;
+    ImageView g4;
+    ImageView ab4;
+    ImageView a4;
+    ImageView bb4;
+    ImageView b4;
+
+    ImageView[] piano4;
+
+    ImageView[][] pianos;
 
     Theory.note key = Theory.note.C;
     Theory.type degree = Theory.type.major;
@@ -106,10 +170,72 @@ public class DAW extends AppCompatActivity {
         chord3Name = (TextView) findViewById(R.id.chord3Name);
         chord3Notes = (TextView) findViewById(R.id.chord3Notes);
         chord4Name = (TextView) findViewById(R.id.chord4Name);
-        chord4Notes = (TextView) findViewById(R.id.chord4notes);
+        chord4Notes = (TextView) findViewById(R.id.chord4Notes);
 
         chordNames = new TextView[]{chord1Name, chord2Name, chord3Name, chord4Name};
         chordNotes = new TextView[]{chord1Notes, chord2Notes, chord3Notes, chord4Notes};
+
+        c1 = (ImageView) findViewById(R.id.c1);
+        db1 = (ImageView) findViewById(R.id.db1);
+        d1 = (ImageView) findViewById(R.id.d1);
+        eb1 = (ImageView) findViewById(R.id.eb1);
+        e1 = (ImageView) findViewById(R.id.e1);
+        f1 = (ImageView) findViewById(R.id.f1);
+        gb1 = (ImageView) findViewById(R.id.gb1);
+        g1 = (ImageView) findViewById(R.id.g1);
+        ab1 = (ImageView) findViewById(R.id.ab1);
+        a1 = (ImageView) findViewById(R.id.a1);
+        bb1 = (ImageView) findViewById(R.id.bb1);
+        b1 = (ImageView) findViewById(R.id.b1);
+
+        piano1 = new ImageView[]{c1, db1, d1, eb1, e1, f1, gb1, g1, ab1, a1, bb1, b1};
+
+        c2 = (ImageView) findViewById(R.id.c2);
+        db2 = (ImageView) findViewById(R.id.db2);
+        d2 = (ImageView) findViewById(R.id.d2);
+        eb2 = (ImageView) findViewById(R.id.eb2);
+        e2 = (ImageView) findViewById(R.id.e2);
+        f2 = (ImageView) findViewById(R.id.f2);
+        gb2 = (ImageView) findViewById(R.id.gb2);
+        g2 = (ImageView) findViewById(R.id.g2);
+        ab2 = (ImageView) findViewById(R.id.ab2);
+        a2 = (ImageView) findViewById(R.id.a2);
+        bb2 = (ImageView) findViewById(R.id.bb2);
+        b2 = (ImageView) findViewById(R.id.b2);
+
+        piano2 = new ImageView[]{c2, db2, d2, eb2, e2, f2, gb2, g2, ab2, a2, bb2, b2};
+
+        c3 = (ImageView) findViewById(R.id.c3);
+        db3 = (ImageView) findViewById(R.id.db3);
+        d3 = (ImageView) findViewById(R.id.d3);
+        eb3 = (ImageView) findViewById(R.id.eb3);
+        e3 = (ImageView) findViewById(R.id.e3);
+        f3 = (ImageView) findViewById(R.id.f3);
+        gb3 = (ImageView) findViewById(R.id.gb3);
+        g3 = (ImageView) findViewById(R.id.g3);
+        ab3 = (ImageView) findViewById(R.id.ab3);
+        a3 = (ImageView) findViewById(R.id.a3);
+        bb3 = (ImageView) findViewById(R.id.bb3);
+        b3 = (ImageView) findViewById(R.id.b3);
+
+        piano3 = new ImageView[]{c3, db3, d3, eb3, e3, f3, gb3, g3, ab3, a3, bb3, b3};
+
+        c4 = (ImageView) findViewById(R.id.c4);
+        db4 = (ImageView) findViewById(R.id.db4);
+        d4 = (ImageView) findViewById(R.id.d4);
+        eb4 = (ImageView) findViewById(R.id.eb4);
+        e4 = (ImageView) findViewById(R.id.e4);
+        f4 = (ImageView) findViewById(R.id.f4);
+        gb4 = (ImageView) findViewById(R.id.gb4);
+        g4 = (ImageView) findViewById(R.id.g4);
+        ab4 = (ImageView) findViewById(R.id.ab4);
+        a4 = (ImageView) findViewById(R.id.a4);
+        bb4 = (ImageView) findViewById(R.id.bb4);
+        b4 = (ImageView) findViewById(R.id.b4);
+
+        piano4 = new ImageView[]{c4, db4, d4, eb4, e4, f4, gb4, g4, ab4, a4, bb4, b4};
+
+        pianos = new ImageView[][]{piano1, piano2, piano3, piano4};
 
         final Button chord1 = (Button) findViewById(R.id.chord1);
         chord1.setOnClickListener(new View.OnClickListener() {
@@ -121,6 +247,9 @@ public class DAW extends AppCompatActivity {
         chord1.setText(prog[0].getChord().toString());
         chord1Name.setText(prog[0].getChord().toString());
         chord1Notes.setText(prog[0].getChord().getNotesString());
+        for(Theory.note n:prog[0].getChord().getNotes()){
+            piano1[n.getVal()].setImageResource(R.drawable.ic_key_selected);
+        }
 
         final Button chord2 = (Button) findViewById(R.id.chord2);
         chord2.setOnClickListener(new View.OnClickListener() {
@@ -132,6 +261,9 @@ public class DAW extends AppCompatActivity {
         chord2.setText(prog[1].getChord().toString());
         chord2Name.setText(prog[1].getChord().toString());
         chord2Notes.setText(prog[1].getChord().getNotesString());
+        for(Theory.note n:prog[1].getChord().getNotes()){
+            piano2[n.getVal()].setImageResource(R.drawable.ic_key_selected);
+        }
 
         final Button chord3 = (Button) findViewById(R.id.chord3);
         chord3.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +275,9 @@ public class DAW extends AppCompatActivity {
         chord3.setText(prog[2].getChord().toString());
         chord3Name.setText(prog[2].getChord().toString());
         chord3Notes.setText(prog[2].getChord().getNotesString());
+        for(Theory.note n:prog[2].getChord().getNotes()){
+            piano3[n.getVal()].setImageResource(R.drawable.ic_key_selected);
+        }
 
         final Button chord4 = (Button) findViewById(R.id.chord4);
         chord4.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +289,9 @@ public class DAW extends AppCompatActivity {
         chord4.setText(prog[3].getChord().toString());
         chord4Name.setText(prog[3].getChord().toString());
         chord4Notes.setText(prog[3].getChord().getNotesString());
+        for(Theory.note n:prog[3].getChord().getNotes()){
+            piano4[n.getVal()].setImageResource(R.drawable.ic_key_selected);
+        }
 
         final ImageView playhead = (ImageView) findViewById(R.id.playhead);
         playhead.setVisibility(View.INVISIBLE);
@@ -210,6 +348,19 @@ public class DAW extends AppCompatActivity {
         keyPicker.setDisplayedValues(notez);
     }
 
+    private void resetPiano(int chordNum) {
+
+        for(ImageView key: pianos[chordNum]){
+            key.setImageResource(R.drawable.ic_rectangle);
+        }
+
+        pianos[chordNum][1].setImageResource(R.drawable.ic_black_key);
+        pianos[chordNum][3].setImageResource(R.drawable.ic_black_key);
+        pianos[chordNum][6].setImageResource(R.drawable.ic_black_key);
+        pianos[chordNum][8].setImageResource(R.drawable.ic_black_key);
+        pianos[chordNum][10].setImageResource(R.drawable.ic_black_key);
+    }
+
     private void chordSelectorDialog(final int chordNum, final Button thisguy) {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.chord_picker);
@@ -253,8 +404,7 @@ public class DAW extends AppCompatActivity {
                         Theory.note.values()[rootIndex],
                         Theory.type.values()[typeIndex]);
                 thisguy.setText(chord.toString());
-                chordNames[chordNum].setText(chord.toString());
-                chordNotes[chordNum].setText(prog[chordNum].getChord().getNotesString());
+
                 // set current chord in prog
                 // translate to number??!?!??
                 int scaleStep = chord.isPartOf(key);
@@ -264,6 +414,14 @@ public class DAW extends AppCompatActivity {
                 }
                 else {
                     prog[chordNum] = new ProgElement(0, chord);
+                }
+
+                chordNames[chordNum].setText(chord.toString());
+                chordNotes[chordNum].setText(prog[chordNum].getChord().getNotesString());
+
+                resetPiano(chordNum);
+                for(Theory.note n:prog[chordNum].getChord().getNotes()){
+                    pianos[chordNum][n.getVal()].setImageResource(R.drawable.ic_key_selected);
                 }
 
                 dialog.dismiss();
