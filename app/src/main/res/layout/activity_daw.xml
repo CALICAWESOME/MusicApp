@@ -110,6 +110,193 @@
                     android:layout_weight="1">
 
                     <LinearLayout
+                        android:id="@+id/tab3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TableLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:stretchColumns="1">
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/gray2">
+
+                            <ImageView
+                                android:id="@+id/imageView32"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:adjustViewBounds="true"
+                                android:background="@color/bg2"
+                                android:paddingBottom="8dp"
+                                android:paddingLeft="8dp"
+                                android:paddingRight="8dp"
+                                android:scaleType="centerCrop"
+                                app:srcCompat="@drawable/ic_looks_one_black_24dp" />
+
+                            <TextView
+                                android:id="@+id/textView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:text="Chord 1" />
+
+                        </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@color/gray2">
+
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="match_parent"
+                                    android:adjustViewBounds="true"
+                                    android:background="@color/bg2"
+                                    android:paddingBottom="8dp"
+                                    android:paddingLeft="8dp"
+                                    android:paddingRight="8dp"
+                                    android:scaleType="fitStart"/>
+
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/gray1">
+
+                                <ImageView
+                                    android:id="@+id/imageView33"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:adjustViewBounds="true"
+                                    android:background="@color/bg"
+                                    android:padding="8dp"
+                                    android:scaleType="fitCenter"
+                                    app:srcCompat="@drawable/ic_looks_two_black_24dp" />
+
+                                <TextView
+                                    android:id="@+id/textView5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:paddingTop="8dp"
+                                    android:text="Chord 2" />
+
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@color/gray1">
+
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="match_parent"
+                                    android:adjustViewBounds="true"
+                                    android:background="@color/bg"
+                                    android:paddingBottom="8dp"
+                                    android:paddingLeft="8dp"
+                                    android:paddingRight="8dp"
+                                    android:scaleType="fitStart"/>
+
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/gray2">
+
+                                <ImageView
+                                    android:id="@+id/imageView34"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:adjustViewBounds="true"
+                                    android:background="@color/bg2"
+                                    android:padding="8dp"
+                                    android:scaleType="fitCenter"
+                                    app:srcCompat="@drawable/ic_looks_3_black_24dp" />
+
+                                <TextView
+                                    android:id="@+id/textView6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:paddingTop="8dp"
+                                    android:text="Chord 3" />
+
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@color/gray2">
+
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="match_parent"
+                                    android:adjustViewBounds="true"
+                                    android:background="@color/bg2"
+                                    android:paddingBottom="8dp"
+                                    android:paddingLeft="8dp"
+                                    android:paddingRight="8dp"
+                                    android:scaleType="fitStart"/>
+
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/gray1">
+
+                                <ImageView
+                                    android:id="@+id/imageView35"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:adjustViewBounds="true"
+                                    android:background="@color/bg"
+                                    android:padding="8dp"
+                                    android:scaleType="fitCenter"
+                                    app:srcCompat="@drawable/ic_looks_4_black_24dp" />
+
+                                <TextView
+                                    android:id="@+id/textView7"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:paddingTop="8dp"
+                                    android:text="Chord 4" />
+
+                            </TableRow>
+
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@color/gray1">
+
+                                <ImageView
+                                    android:layout_width="50dp"
+                                    android:layout_height="match_parent"
+                                    android:adjustViewBounds="true"
+                                    android:background="@color/bg"
+                                    android:paddingBottom="8dp"
+                                    android:paddingLeft="8dp"
+                                    android:paddingRight="8dp"
+                                    android:scaleType="fitStart"/>
+
+                            </TableRow>
+                        </TableLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:id="@+id/tab1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -330,18 +517,7 @@
                         </TableLayout>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/tab3"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="This is tab 3" />
-
-                    </LinearLayout>
                 </FrameLayout>
 
                 <TabWidget
