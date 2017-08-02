@@ -1,54 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/textView2"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:text="@string/chord_pick"
-        android:textSize="20sp" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/pickersGoHere"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentEnd="true"
-        android:gravity="center">
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="25dp"
+            android:text="@string/chord_pick"
+            android:textSize="20sp"
+            android:gravity="center"/>
 
-        <NumberPicker
-            android:id="@+id/chordRootPicker"
+        <LinearLayout
+            android:id="@+id/pickersGoHere"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textNoSuggestions|textVisiblePassword"
-            android:descendantFocusability="blocksDescendants" />
+            android:orientation="horizontal"
+            android:layout_below="@+id/textView2"
+            android:layout_alignParentEnd="true"
+            android:gravity="center">
 
-        <Spinner
-            android:id="@+id/chordTypePicker"
+            <NumberPicker
+                android:id="@+id/chordRootPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textNoSuggestions|textVisiblePassword"
+                android:descendantFocusability="blocksDescendants" />
+
+            <Spinner
+                android:id="@+id/chordTypePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <TableLayout
+            android:id="@+id/suggsTable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pickersGoHere" />
+
+        <Button
+            android:id="@+id/done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="start" />
+            android:text="OK COOL"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/suggsTable" />
 
-    </LinearLayout>
-
-    <TableLayout
-        android:id="@+id/suggsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/done"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/pickersGoHere"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:text="OK COOL" />
-
-
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

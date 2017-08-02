@@ -1,11 +1,13 @@
 package edu.wit.mobileapp.musicapp;
 
 import android.app.Dialog;
+import android.media.MediaPlayer;
 import android.graphics.PorterDuff;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.TabHost;
 
@@ -38,9 +41,14 @@ public class DAW extends AppCompatActivity {
     TextView chord4Name;
     TextView chord4Notes;
 
+    ArrayList<Sequence> tracks = new ArrayList<Sequence>();
+    Sequence drums = new Sequence();
+
     TextView[] chordNames;
     TextView[] chordNotes;
+    Button[] progButtons;
 
+    // TODO: link with key picker
     ImageView c1;
     ImageView db1;
     ImageView d1;
@@ -112,6 +120,16 @@ public class DAW extends AppCompatActivity {
             new ProgElement(4, null)
     };
 
+    void setProgNum(int i, ProgElement element) {
+        // change prog[i]
+        // update buttons
+        prog[i] = element;
+        Theory.chord thisGuy = prog[i].getChord();
+        progButtons[i].setText(thisGuy.toString());
+        chordNames[i].setText(thisGuy.toString());
+        chordNotes[i].setText(thisGuy.getNotesString());
+    }
+
     private class ProgElement {
         int scaleStep;
         private Theory.chord chord;
@@ -170,7 +188,7 @@ public class DAW extends AppCompatActivity {
         chord3Name = (TextView) findViewById(R.id.chord3Name);
         chord3Notes = (TextView) findViewById(R.id.chord3Notes);
         chord4Name = (TextView) findViewById(R.id.chord4Name);
-        chord4Notes = (TextView) findViewById(R.id.chord4Notes);
+        chord4Notes = (TextView) findViewById(R.id.chord4notes);
 
         chordNames = new TextView[]{chord1Name, chord2Name, chord3Name, chord4Name};
         chordNotes = new TextView[]{chord1Notes, chord2Notes, chord3Notes, chord4Notes};
@@ -293,6 +311,8 @@ public class DAW extends AppCompatActivity {
             piano4[n.getVal()].setImageResource(R.drawable.ic_key_selected);
         }
 
+        progButtons = new Button[]{chord1, chord2, chord3, chord4};
+
         final ImageView playhead = (ImageView) findViewById(R.id.playhead);
         playhead.setVisibility(View.INVISIBLE);
         final TranslateAnimation animation = new TranslateAnimation(
@@ -304,18 +324,21 @@ public class DAW extends AppCompatActivity {
         animation.setDuration(8000);
         animation.setInterpolator(new LinearInterpolator());
         final ImageView playButton = (ImageView) findViewById(R.id.play);
+        fillTracks(); //create drum sequence
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(playing){
                     playButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                     playing = false;
+                    //pauseTracks();
                     playhead.setVisibility(View.INVISIBLE);
                     playhead.clearAnimation();
                 }
                 else{
                     playButton.setImageResource(R.drawable.ic_pause_black_24dp);
                     playing = true;
+                    //playTracks();
                     playhead.setVisibility(View.VISIBLE);
                     playhead.startAnimation(animation);
                 }
@@ -336,6 +359,7 @@ public class DAW extends AppCompatActivity {
                     playhead.clearAnimation();
                 }
                 animation.setDuration(16000*60/i2);
+                updateBpm(i2);
             }
         });
 
@@ -392,7 +416,27 @@ public class DAW extends AppCompatActivity {
         rootPick.setValue(yeChord.root.getVal());
         spinner.setSelection(spinnerAdapter.getPosition(yeChord.type.toString()));
 
-        // add suggestions here!!!!!!!!
+        int[] suggs = getSugg(chordNum);
+        LayoutInflater inflater =  getLayoutInflater();
+        TableLayout suggTable = (TableLayout) dialog.findViewById(R.id.suggsTable);
+        for (final int i : suggs) {
+            // turn the number into a chord
+            // - get suggs
+            final Theory.chord chord = Theory.num2Chord(i, key);
+            // - add suggs to dialog
+            // >>> look up how to do this, yo
+            View suggRow = inflater.inflate(R.layout.suggestion_row, null);
+            Button b = (Button)suggRow.findViewById(R.id.suggButt);
+            b.setText(chord.toString());
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setProgNum(chordNum, new ProgElement(i, null));
+                    dialog.dismiss();
+                }
+            });
+            suggTable.addView(suggRow);
+        }
 
         Button done = (Button) dialog.findViewById(R.id.done);
         done.setOnClickListener(new View.OnClickListener() {
@@ -410,10 +454,10 @@ public class DAW extends AppCompatActivity {
                 int scaleStep = chord.isPartOf(key);
                 // if the chord fits into our scale
                 if (scaleStep != 0) {
-                    prog[chordNum] = new ProgElement(scaleStep, null);
+                    setProgNum(chordNum, new ProgElement(scaleStep, null));
                 }
                 else {
-                    prog[chordNum] = new ProgElement(0, chord);
+                    setProgNum(chordNum, new ProgElement(0, chord));
                 }
 
                 chordNames[chordNum].setText(chord.toString());
@@ -491,7 +535,7 @@ public class DAW extends AppCompatActivity {
     }
 
     private int[] getSuggRecursive(Node curr, int chordNum, int i) {
-        if (curr == null || i == 0) {
+        if (curr == null) {
             return new int[0];
         }
         if (i < chordNum)
@@ -511,5 +555,28 @@ public class DAW extends AppCompatActivity {
             realret[j] = ret.get(j)+1;
 
         return realret;
+    }
+
+    private void fillTracks(){
+        drums.addSound(MediaPlayer.create(this, R.raw.test), 0);
+        tracks.add(drums);
+    }
+
+    private void playTracks(){
+        for(Sequence track : tracks){
+            track.play();
+        }
+    }
+
+    private void pauseTracks(){
+        for(Sequence track : tracks){
+            track.pause();
+        }
+    }
+
+    private void updateBpm(int bpm){
+        for(Sequence track : tracks){
+            track.setBpm(bpm);
+        }
     }
 }
