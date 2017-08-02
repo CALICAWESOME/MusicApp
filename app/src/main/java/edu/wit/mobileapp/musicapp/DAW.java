@@ -72,35 +72,35 @@ public class DAW extends AppCompatActivity {
         // fill trie with data from prog.txt
         fillTrie();
 
-        Button chord1 = (Button) findViewById(R.id.chord1);
+        final Button chord1 = (Button) findViewById(R.id.chord1);
         chord1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chordSelectorDialog(1);
+                chordSelectorDialog(1, chord1);
             }
         });
 
-        Button chord2 = (Button) findViewById(R.id.chord2);
+        final Button chord2 = (Button) findViewById(R.id.chord2);
         chord2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chordSelectorDialog(2);
+                chordSelectorDialog(2, chord2);
             }
         });
 
-        Button chord3 = (Button) findViewById(R.id.chord3);
+        final Button chord3 = (Button) findViewById(R.id.chord3);
         chord3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chordSelectorDialog(3);
+                chordSelectorDialog(3, chord3);
             }
         });
 
-        Button chord4 = (Button) findViewById(R.id.chord4);
+        final Button chord4 = (Button) findViewById(R.id.chord4);
         chord4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chordSelectorDialog(4);
+                chordSelectorDialog(4, chord4);
             }
         });
 
@@ -164,25 +164,27 @@ public class DAW extends AppCompatActivity {
         });
 
         NumberPicker keyPicker = (NumberPicker) findViewById(R.id.keyPicker);
-        String[] keys = {"C", "G", "D", "A", "E", "B", "F♯", "C♯", "C♭", "G♭", "D♭", "A♭", "E♭", "B♭", "F"};
+        final String[] notez = new String[Theory.note.values().length];
+        for (int i = 0; i < notez.length; i++)
+            notez[i] = Theory.note.values()[i].name().replace("b", Theory.nonEmojiFlat);
         keyPicker.setMinValue(0);
-        keyPicker.setMaxValue(keys.length-1);
-        keyPicker.setDisplayedValues(keys);
+        keyPicker.setMaxValue(notez.length-1);
+        keyPicker.setDisplayedValues(notez);
     }
 
     // TODO: make this work for selecting chords and getting suggestions
-    private void chordSelectorDialog(int chordNum) {
+    private void chordSelectorDialog(int chordNum, final Button thisguy) {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.chord_picker);
         TextView t = (TextView) dialog.findViewById(R.id.textView2);
-        String theBoy = "CHORD " + chordNum;
-        t.setText(theBoy);
+        final String chordX = "CHORD " + chordNum;
+        t.setText(chordX);
 
         // root picker
         final NumberPicker rootPick = (NumberPicker) dialog.findViewById(R.id.chordRootPicker);
         final String[] notez = new String[Theory.note.values().length];
         for (int i = 0; i < notez.length; i++)
-            notez[i] = Theory.note.values()[i].name();
+            notez[i] = Theory.note.values()[i].name().replace("b", Theory.nonEmojiFlat);
         rootPick.setMinValue(0);
         rootPick.setMaxValue(notez.length-1);
         rootPick.setDisplayedValues(notez);
@@ -198,9 +200,10 @@ public class DAW extends AppCompatActivity {
             public void onClick(View v) {
                 int rootIndex = rootPick.getValue();
                 int typeIndex = spinner.getSelectedItemPosition();
-                Theory.chord theBoi = new Theory.chord(
+                Theory.chord newButtonText = new Theory.chord(
                         Theory.note.values()[rootIndex],
                         Theory.type.values()[typeIndex]);
+                thisguy.setText(newButtonText.toString());
                 // set current chord in prog
                 // translate to number??!?!??
                 dialog.dismiss();

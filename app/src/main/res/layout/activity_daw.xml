@@ -160,6 +160,7 @@
                                     android:backgroundTint="@color/colorPrimaryLight"
                                     android:gravity="center"
                                     android:text="1"
+                                    android:textAllCaps="false"
                                     android:textColor="@color/white" />
 
                                 <Button
@@ -172,6 +173,7 @@
                                     android:backgroundTint="@color/colorPrimaryLight"
                                     android:gravity="center"
                                     android:text="2"
+                                    android:textAllCaps="false"
                                     android:textColor="@color/white" />
 
                                 <Button
@@ -185,6 +187,7 @@
                                     android:elevation="24dp"
                                     android:gravity="center"
                                     android:text="3"
+                                    android:textAllCaps="false"
                                     android:textColor="@color/white" />
 
                                 <Button
@@ -197,6 +200,7 @@
                                     android:backgroundTint="@color/colorPrimaryLight"
                                     android:gravity="center"
                                     android:text="4"
+                                    android:textAllCaps="false"
                                     android:textColor="@color/white" />
                             </TableRow>
 
