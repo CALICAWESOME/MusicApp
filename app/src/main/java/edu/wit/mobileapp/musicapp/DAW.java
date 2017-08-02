@@ -41,7 +41,6 @@ public class DAW extends AppCompatActivity {
 
     Theory.note key = Theory.note.C;
     Theory.type degree = Theory.type.major;
-    // TODO: sync this with DAW buttons (see line 45)
     ProgElement prog[] = {
             new ProgElement(1, null),
             new ProgElement(5, null),
@@ -211,7 +210,6 @@ public class DAW extends AppCompatActivity {
         keyPicker.setDisplayedValues(notez);
     }
 
-    // TODO: make this work for selecting chords and getting suggestions
     private void chordSelectorDialog(final int chordNum, final Button thisguy) {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.chord_picker);
@@ -222,14 +220,16 @@ public class DAW extends AppCompatActivity {
         // root picker
         final NumberPicker rootPick = (NumberPicker) dialog.findViewById(R.id.chordRootPicker);
         final String[] notez = new String[Theory.note.values().length];
-        for (int i = 0; i < notez.length; i++)
+        for (int i = 0; i < notez.length; i++) {
             notez[i] = Theory.note.values()[i].name().replace("b", Theory.nonEmojiFlat);
+            if (notez[i].length() == 1)
+                notez[i] += '\uFE0E';
+        }
         rootPick.setMinValue(0);
         rootPick.setMaxValue(notez.length-1);
         rootPick.setDisplayedValues(notez);
 
         // type picker
-        // TODO: fix fucking autocomplete in number spinners, specifically flats here
         final Spinner spinner = (Spinner) dialog.findViewById(R.id.chordTypePicker);
         String[] types = {"major", "minor", "diminished"};
         ArrayAdapter spinnerAdapter = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, types);
@@ -240,6 +240,8 @@ public class DAW extends AppCompatActivity {
         Theory.chord yeChord = prog[chordNum].getChord();
         rootPick.setValue(yeChord.root.getVal());
         spinner.setSelection(spinnerAdapter.getPosition(yeChord.type.toString()));
+
+        // add suggestions here!!!!!!!!
 
         Button done = (Button) dialog.findViewById(R.id.done);
         done.setOnClickListener(new View.OnClickListener() {
