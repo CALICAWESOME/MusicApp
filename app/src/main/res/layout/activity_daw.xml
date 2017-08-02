@@ -122,33 +122,32 @@
                             android:layout_height="match_parent"
                             android:stretchColumns="1">
 
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@color/gray2">
-
-                            <ImageView
-                                android:id="@+id/imageView32"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                            <TableRow
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:layout_marginTop="-3dp"
-                                android:adjustViewBounds="false"
-                                android:background="@color/bg2"
-                                android:paddingLeft="3dp"
-                                android:scaleType="fitStart"
-                                app:srcCompat="@drawable/ic_looks_one_black_24dp" />
+                                android:background="@color/gray2">
 
-                            <TextView
-                                android:id="@+id/chord1Notes"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="top"
-                                android:paddingLeft="8dp"
-                                android:text="Chord 1"
-                                android:textColor="@color/bg"
-                                android:textSize="14sp" />
+                                <ImageView
+                                    android:id="@+id/imageView32"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="20dp"
+                                    android:adjustViewBounds="false"
+                                    android:background="@color/bg2"
+                                    android:paddingLeft="3dp"
+                                    android:scaleType="fitStart"
+                                    app:srcCompat="@drawable/ic_looks_one_black_24dp" />
 
-                        </TableRow>
+                                <TextView
+                                    android:id="@+id/chord1Notes"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingLeft="8dp"
+                                    android:text="Chord 1"
+                                    android:textColor="@color/bg"
+                                    android:textSize="14sp" />
+
+                            </TableRow>
 
                             <TableRow
                                 android:layout_width="match_parent"
@@ -166,7 +165,7 @@
                                     android:gravity="center"
                                     android:text="Cm"
                                     android:textColor="@color/white"
-                                    android:textSize="26sp"
+                                    android:textSize="28sp"
                                     android:textStyle="bold|italic" />
 
                             </TableRow>
@@ -179,7 +178,7 @@
                                 <ImageView
                                     android:id="@+id/imageView33"
                                     android:layout_width="50dp"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="25dp"
                                     android:adjustViewBounds="false"
                                     android:background="@color/bg"
                                     android:paddingLeft="3dp"
@@ -191,7 +190,6 @@
                                     android:id="@+id/chord2Notes"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:gravity="top"
                                     android:paddingLeft="8dp"
                                     android:paddingTop="5dp"
                                     android:text="Chord 2"
@@ -216,7 +214,7 @@
                                     android:gravity="center"
                                     android:text="Cm"
                                     android:textColor="@color/white"
-                                    android:textSize="26sp"
+                                    android:textSize="28sp"
                                     android:textStyle="bold|italic" />
 
                             </TableRow>
@@ -229,7 +227,7 @@
                                 <ImageView
                                     android:id="@+id/imageView34"
                                     android:layout_width="50dp"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="25dp"
                                     android:adjustViewBounds="false"
                                     android:background="@color/bg2"
                                     android:paddingLeft="3dp"
@@ -241,7 +239,6 @@
                                     android:id="@+id/chord3Notes"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:gravity="top"
                                     android:paddingLeft="8dp"
                                     android:paddingTop="5dp"
                                     android:text="Chord 3"
@@ -266,7 +263,7 @@
                                     android:gravity="center"
                                     android:text="Cm"
                                     android:textColor="@color/white"
-                                    android:textSize="26sp"
+                                    android:textSize="28sp"
                                     android:textStyle="bold|italic" />
 
                             </TableRow>
@@ -279,7 +276,7 @@
                                 <ImageView
                                     android:id="@+id/imageView35"
                                     android:layout_width="50dp"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="25dp"
                                     android:adjustViewBounds="false"
                                     android:background="@color/bg"
                                     android:paddingLeft="3dp"
@@ -291,7 +288,6 @@
                                     android:id="@+id/chord4notes"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:gravity="top"
                                     android:paddingLeft="8dp"
                                     android:paddingTop="5dp"
                                     android:text="Chord 4"
@@ -316,7 +312,7 @@
                                     android:gravity="center"
                                     android:text="Cm"
                                     android:textColor="@color/white"
-                                    android:textSize="26sp"
+                                    android:textSize="28sp"
                                     android:textStyle="bold|italic" />
 
                             </TableRow>
