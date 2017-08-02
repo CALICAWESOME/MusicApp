@@ -2,6 +2,7 @@ package edu.wit.mobileapp.musicapp;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -9,19 +10,20 @@ import java.util.ArrayList;
  * Created by cannistrarod on 8/2/2017.
  */
 
-public class Sequence {
+public class Sequence implements Runnable{
 
     //array of  64 arraylists of mediaplayer sounds to play at the given step
     private ArrayList<MediaPlayer>[] sounds;
     private int bpm;
+    private Thread seq;
     private int numOfMeasures = 4;
-    private float tick;
-    private float currentTime = 0;
+    private double tick;
+    private double currentTime = 0.0;
+    private double maxTime;
     private boolean isPlaying = false;
 
     public Sequence(){
-        bpm = 120;
-        tick = (float) 250.0*60/bpm;
+        this.setBpm(120);
         sounds = (ArrayList<MediaPlayer>[])new ArrayList[numOfMeasures*16];
     }
 
@@ -31,8 +33,8 @@ public class Sequence {
     }
 
     public Sequence(int measures, int bpm){
-        this.setBpm(bpm);
         numOfMeasures = measures;
+        this.setBpm(bpm);
         sounds = (ArrayList<MediaPlayer>[])new ArrayList[numOfMeasures*16];
     }
 
@@ -40,7 +42,8 @@ public class Sequence {
         this.pause();
 
         bpm = x;
-        tick = 250f*60f/bpm;
+        tick = 250.0*60.0/bpm;
+        maxTime = tick * numOfMeasures * 16;
     }
 
     //adds a mediaplayer sound object that will play at step t (Ex: if t = 4, the sound will play on the 2nd beat)
@@ -75,11 +78,30 @@ public class Sequence {
         if (isPlaying){
             return;
         }else{
+            if(seq != null && seq.isAlive()){
+                try{
+                    seq.join();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
             isPlaying = true;
-            Thread seq = new Thread();
-            //TODO
-            //start thread for sequence
-            //
+            seq = new Thread(this);
+            seq.start();
+        }
+    }
+
+    private void playStep(){
+
+        int x = (int) Math.floor(currentTime/tick);
+        for (MediaPlayer m : sounds[x]) {
+            m.start();
+        }
+
+        //update currentTime
+        currentTime += tick;
+        if (currentTime >= maxTime){
+            currentTime = 0.0;
         }
     }
 
@@ -88,6 +110,7 @@ public class Sequence {
         if (!isPlaying){
             return;
         }else{
+            isPlaying = false;
             for (int i=0;i<sounds.length;i++){
                 for (MediaPlayer sound : sounds[i]) {
                     if (sound.isPlaying()){
@@ -96,11 +119,27 @@ public class Sequence {
                 }
             }
             //kill thread
-            isPlaying = false;
+            //thread will be killed by isPlaying flag
         }
     }
 
     public boolean isPlaying(){
         return isPlaying;
+    }
+
+    @Override
+    public void run() {
+        while(isPlaying){
+            playStep();
+            int milli = (int) Math.floor(tick);
+            int nano = (int) Math.floor((tick-milli) * 1000000);
+            try {
+                Thread.sleep(milli, nano);
+            }catch (Exception e){
+                Log.v("app", "thread interrupted!");
+                //yolo
+            }
+        }
+
     }
 }
