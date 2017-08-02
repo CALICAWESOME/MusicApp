@@ -31,6 +31,9 @@ public class DAW extends AppCompatActivity {
     Node root = new Node();
     final int numChords = 4;
     boolean playing = false;
+
+    // TODO: hey Jared I bet this was really HARD to CODE
+    // TODO: hahehehaheuaheuheuheuheuhueh
     TextView chord1Name;
     TextView chord1Notes;
     TextView chord2Name;
@@ -109,7 +112,19 @@ public class DAW extends AppCompatActivity {
 
     ImageView[][] pianos;
 
-    // TODO: link with key picker
+    private void resetPiano(int chordNum) {
+
+        for(ImageView key: pianos[chordNum]){
+            key.setImageResource(R.drawable.ic_rectangle);
+        }
+
+        pianos[chordNum][1].setImageResource(R.drawable.ic_black_key);
+        pianos[chordNum][3].setImageResource(R.drawable.ic_black_key);
+        pianos[chordNum][6].setImageResource(R.drawable.ic_black_key);
+        pianos[chordNum][8].setImageResource(R.drawable.ic_black_key);
+        pianos[chordNum][10].setImageResource(R.drawable.ic_black_key);
+    }
+
     Theory.note key = Theory.note.C;
     Theory.type degree = Theory.type.major;
     ProgElement prog[] = {
@@ -119,11 +134,16 @@ public class DAW extends AppCompatActivity {
             new ProgElement(4, null)
     };
 
+    /**
+     * A nice function to manage changing everything else when we want to edit the chord progression
+     * @param i: index of the chord we're changing in prog
+     * @param element: ProgElement to replace prog[i] with
+     */
     void updateProgAt(int i, ProgElement element) {
         // change prog[i]
-        // update buttons
         prog[i] = element;
         Theory.chord thisGuy = prog[i].getChord();
+        // update buttons & other things
         progButtons[i].setText(thisGuy.toString());
         chordNames[i].setText(thisGuy.toString());
         chordNotes[i].setText(thisGuy.getNotesString());
@@ -161,6 +181,7 @@ public class DAW extends AppCompatActivity {
         TabHost host = (TabHost) findViewById(R.id.tabHost);
         host.setup();
 
+        // TODO: tabs go away when screen is tilted sideways
         //Tab 1
         TabHost.TabSpec spec = host.newTabSpec("Write");
         spec.setContent(R.id.tab1);
@@ -258,6 +279,9 @@ public class DAW extends AppCompatActivity {
 
         pianos = new ImageView[][]{piano1, piano2, piano3, piano4};
 
+        ///////////////////
+        // CHORD BUTTONS //
+        ///////////////////
         final Button chord1 = (Button) findViewById(R.id.chord1);
         chord1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -392,19 +416,6 @@ public class DAW extends AppCompatActivity {
                     updateProgAt(i, prog[i]);
             }
         });
-    }
-
-    private void resetPiano(int chordNum) {
-
-        for(ImageView key: pianos[chordNum]){
-            key.setImageResource(R.drawable.ic_rectangle);
-        }
-
-        pianos[chordNum][1].setImageResource(R.drawable.ic_black_key);
-        pianos[chordNum][3].setImageResource(R.drawable.ic_black_key);
-        pianos[chordNum][6].setImageResource(R.drawable.ic_black_key);
-        pianos[chordNum][8].setImageResource(R.drawable.ic_black_key);
-        pianos[chordNum][10].setImageResource(R.drawable.ic_black_key);
     }
 
     ///////////////////////////
