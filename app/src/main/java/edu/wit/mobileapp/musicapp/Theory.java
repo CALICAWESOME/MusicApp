@@ -77,15 +77,12 @@ class Theory {
                     return i + 1;
             return 0;
         }
-
         String getNotesString() {
             String ret = "";
-
             for (note n: getNotes()) {
                 ret+=n.name();
                 ret+="  ";
             }
-
             return ret;
         }
         @Override
@@ -93,7 +90,7 @@ class Theory {
             String typeabbr = "";
             switch (type) {
                 case minor:
-                    typeabbr = "-";
+                    typeabbr = "m";
                     break;
                 case diminished:
                     typeabbr = "°";
@@ -103,10 +100,9 @@ class Theory {
         }
     }
 
-    static chord num2Chord(int num, note tonic) {
-        // TODO: is this chord's root always a major interval from the tonic?
+    static chord num2Chord(int num, note key) {
         int scaleTypeIndex = num-1;
-        return new chord(tonic.getInterval(type.major, num), majorScaleTypes[scaleTypeIndex]);
+        return new chord(key.getInterval(type.major, num), majorScaleTypes[scaleTypeIndex]);
     }
 
     // TODO: make this suck less (see below)
