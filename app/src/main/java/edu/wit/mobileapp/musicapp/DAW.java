@@ -568,10 +568,10 @@ public class DAW extends AppCompatActivity {
     }
 
     private int[] getSuggRecursive(Node curr, int chordNum, int i) {
-        if (curr == null || prog[i].scaleStep == 0) {
+        if (curr == null) {
             return new int[0];
         }
-        if (i < chordNum)
+        if (i < chordNum && prog[i].scaleStep != 0)
             return getSuggRecursive(curr.next[prog[i].scaleStep-1], chordNum, i+1);
 
         // ret will be converted into an array of ints
