@@ -98,7 +98,7 @@ class Theory {
                     typeabbr = "°";
                     break;
             }
-            return root.toString().replace("b", nonEmojiFlat + " ") + typeabbr;
+            return root.toString().replace("b", nonEmojiFlat) + typeabbr;
         }
     }
 
