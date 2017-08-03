@@ -586,17 +586,17 @@ public class DAW extends AppCompatActivity {
     }
 
     private void fillTracks(){
-        MediaPlayer kick = MediaPlayer.create(getApplicationContext(), R.raw.test);
+        MediaPlayer kick = MediaPlayer.create(getApplicationContext(), R.raw.kick);
         MediaPlayer hat = MediaPlayer.create(getApplicationContext(), R.raw.hat);
         MediaPlayer snare = MediaPlayer.create(getApplicationContext(), R.raw.snare);
 
-        for(int i=0;i<2;i++) {
+        for(int i=0;i<1;i++) {
 
             drums.addSound(kick, i*4+0);
-            drums.addSound(hat, i*4+2);
-            drums.addSound(snare, i*4+4);
-            drums.addSound(kick, i*4+4);
-            drums.addSound(hat, i*4+6);
+            //drums.addSound(hat, i*4+2);
+            //drums.addSound(snare, i*4+4);
+            //drums.addSound(kick, i*4+4);
+            //drums.addSound(hat, i*4+6);
         }
 
         //drums.addSound(MediaPlayer.create(getApplicationContext(), R.raw.test), 0);
