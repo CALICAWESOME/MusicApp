@@ -111,6 +111,10 @@ public class Sequence implements Runnable{
 
         int x = (int) Math.floor(currentTime/tick);
         for (MediaPlayer m : sounds[x]) {
+            if(m.isPlaying()){
+                m.pause();
+            }
+            m.seekTo(0);
             m.start();
         }
 
@@ -130,7 +134,7 @@ public class Sequence implements Runnable{
             for (int i=0;i<sounds.length;i++){
                 for (MediaPlayer sound : sounds[i]) {
                     if (sound.isPlaying()){
-                        sound.stop();
+                        sound.pause();
                     }
                 }
             }
