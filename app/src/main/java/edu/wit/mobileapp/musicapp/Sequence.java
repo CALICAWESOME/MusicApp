@@ -150,12 +150,14 @@ public class Sequence implements Runnable{
 
     @Override
     public void run() {
+        long startTime = System.currentTimeMillis();
         while(isPlaying){
             playStep();
             int milli = (int) Math.floor(tick);
             int nano = (int) Math.floor((tick-milli) * 1000000);
             try {
-                Thread.sleep(milli, nano);
+                Thread.sleep(milli - (System.currentTimeMillis() - startTime)*2, nano);
+                startTime = System.currentTimeMillis();
             }catch (Exception e){
                 Log.v("app", "thread interrupted!");
                 //yolo
