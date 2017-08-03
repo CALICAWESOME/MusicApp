@@ -18,7 +18,12 @@ class Theory {
         note addHalfSteps(int i) {
             return note.values()[(this.getVal() + i) % note.values().length];
         }
-
+        int halfStepsDownTo(note n) {
+            if (this.getVal() > n.getVal())
+                return this.getVal() - n.getVal();
+            else
+                return this.getVal() + 12 - n.getVal();
+        }
         /**
          * @param t: interval type (major, minor, perfect, tritone)
          * @param interval: interval number, like a 7th or a 4th
@@ -37,12 +42,6 @@ class Theory {
                     return this.addHalfSteps(halfSteps[halfStepIndex]-1);
             }
             return this;
-        }
-        int halfStepsDownTo(note n) {
-            if (this.getVal() > n.getVal())
-                return this.getVal() - n.getVal();
-            else
-                return this.getVal() + 12 - n.getVal();
         }
     }
 
