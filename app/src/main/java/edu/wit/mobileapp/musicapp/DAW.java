@@ -142,11 +142,11 @@ public class DAW extends AppCompatActivity {
     void updateProgAt(int i, ProgElement element) {
         // change prog[i]
         prog[i] = element;
-        Theory.chord thisGuy = prog[i].getChord();
+        Theory.chord newChord = prog[i].getChord();
         // update buttons & other things
-        progButtons[i].setText(thisGuy.toString());
-        chordNames[i].setText(thisGuy.toString());
-        chordNotes[i].setText(thisGuy.getNotesString());
+        progButtons[i].setText(newChord.toString());
+        chordNames[i].setText(newChord.toString());
+        chordNotes[i].setText(newChord.getNotesString());
         resetPiano(i);
         for(Theory.note n : prog[i].getChord().getNotes()){
             pianos[i][n.getVal()].setImageResource(R.drawable.ic_key_selected);
@@ -409,9 +409,14 @@ public class DAW extends AppCompatActivity {
         keyPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                Log.v("OLD", "" + oldVal);
-                Log.v("NEW", "" + newVal);
                 key = Theory.note.values()[newVal];
+                for (ProgElement pe : prog) {
+                    if (pe.chord != null) {
+                        Theory.note oldKey = Theory.note.values()[oldVal];
+                        Theory.note newKey = Theory.note.values()[newVal];
+                        pe.chord.root = pe.chord.root.addHalfSteps(newKey.halfStepsDownTo(oldKey));
+                    }
+                }
                 for (int i = 0; i < prog.length; i++)
                     updateProgAt(i, prog[i]);
             }
@@ -421,7 +426,7 @@ public class DAW extends AppCompatActivity {
     ///////////////////////////
     // CHORD SELECTOR DIALOG //
     ///////////////////////////
-    private void chordSelectorDialog(final int chordNum, final Button thisguy) {
+    private void chordSelectorDialog(final int chordNum, final Button thisButton) {
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.chord_picker);
         TextView t = (TextView) dialog.findViewById(R.id.textView2);
@@ -483,7 +488,7 @@ public class DAW extends AppCompatActivity {
                 Theory.chord chord = new Theory.chord(
                         Theory.note.values()[rootIndex],
                         Theory.type.values()[typeIndex]);
-                thisguy.setText(chord.toString());
+                thisButton.setText(chord.toString());
 
                 // set current chord in prog
                 // translate to number??!?!??
