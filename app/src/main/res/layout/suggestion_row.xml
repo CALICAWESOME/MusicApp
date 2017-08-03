@@ -7,6 +7,10 @@
     <Button
         android:id="@+id/suggButt"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/colorPrimaryLight"
+        android:textColor="@color/white"
+        android:textAllCaps="false"/>
 
 </TableRow>
