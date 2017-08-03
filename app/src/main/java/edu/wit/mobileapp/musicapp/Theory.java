@@ -1,9 +1,16 @@
 package edu.wit.mobileapp.musicapp;
 
+import android.media.MediaPlayer;
+
 class Theory {
 
     // forces unicode character and not emoji
     static String nonEmojiFlat = "\u266D\uFE0E";
+
+    static final private int[] noteIds = {
+            R.raw.C, R.raw.Db, R.raw.D, R.raw.Eb, R.raw.E, R.raw.F,
+            R.raw.Gb, R.raw.G, R.raw.Ab, R.raw.A, R.raw.Bb, R.raw.B
+    };
 
     enum note {
         C(0), Db(1), D(2), Eb(3), E(4), F(5), Gb(6), G(7), Ab(8), A(9), Bb(10), B(11);
@@ -42,6 +49,9 @@ class Theory {
                     return this.addHalfSteps(halfSteps[halfStepIndex]-1);
             }
             return this;
+        }
+        MediaPlayer getSound() {
+            return null;
         }
     }
 

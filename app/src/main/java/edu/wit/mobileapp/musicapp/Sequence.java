@@ -1,6 +1,5 @@
 package edu.wit.mobileapp.musicapp;
 
-import android.content.Context;
 import android.media.MediaPlayer;
 import android.util.Log;
 
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 
 public class Sequence implements Runnable{
 
-    //array of  64 arraylists of mediaplayer sounds to play at the given step
+    // array of 64 arraylists of mediaplayer sounds to play at the given step
     private ArrayList<MediaPlayer>[] sounds;
     private int bpm;
     private Thread seq;
@@ -31,7 +30,6 @@ public class Sequence implements Runnable{
         this.setBpm(bpm);
         init();
     }
-
     public Sequence(int measures, int bpm){
         numOfMeasures = measures;
         this.setBpm(bpm);
@@ -53,7 +51,10 @@ public class Sequence implements Runnable{
         }
     }
 
-    //adds a mediaplayer sound object that will play at step t (Ex: if t = 4, the sound will play on the 2nd beat)
+    /**
+     * adds a mediaplayer sound object that will play at step t
+     * Ex: if t = 4, the sound will play on the 2nd beat
+     */
     public void addSound(MediaPlayer x, int t){
         this.pause();
 

@@ -5,7 +5,6 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -34,7 +33,7 @@ public class DAW extends AppCompatActivity {
     private int bpm = 120;
 
     // TODO: hey Jared I bet this was really HARD to CODE
-    // TODO: hahehehaheuaheuheuheuheuhueh
+    // TODO: HAHEHEHAHEUAHEUHEUHEUHEUHUEH
     TextView chord1Name;
     TextView chord1Notes;
     TextView chord2Name;
@@ -45,7 +44,6 @@ public class DAW extends AppCompatActivity {
     TextView chord4Notes;
 
     ArrayList<Sequence> tracks = new ArrayList<>();
-    Sequence drums = new Sequence(1, bpm);
 
     TextView[] chordNames;
     TextView[] chordNotes;
@@ -346,7 +344,7 @@ public class DAW extends AppCompatActivity {
         //////////////
         final ImageView playhead = (ImageView) findViewById(R.id.playhead);
         playhead.setVisibility(View.INVISIBLE);
-        final TranslateAnimation animation = new TranslateAnimation(
+        final TranslateAnimation animation = new TranslateAnimation (
                 TranslateAnimation.RELATIVE_TO_PARENT, 0f,
                 TranslateAnimation.RELATIVE_TO_PARENT, 1.0f,
                 TranslateAnimation.ABSOLUTE, 0f,
@@ -595,6 +593,7 @@ public class DAW extends AppCompatActivity {
         MediaPlayer kick = MediaPlayer.create(this, R.raw.kick);
         MediaPlayer hat = MediaPlayer.create(this, R.raw.hat);
         MediaPlayer snare = MediaPlayer.create(this, R.raw.snare);
+        Sequence drums = new Sequence(1, bpm);
 
         for(int i=0;i<2;i++) {
 
