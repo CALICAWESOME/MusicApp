@@ -563,7 +563,7 @@ public class DAW extends AppCompatActivity {
     }
 
     private int[] getSuggRecursive(Node curr, int chordNum, int i) {
-        if (curr == null) {
+        if (curr == null || prog[i].scaleStep == 0) {
             return new int[0];
         }
         if (i < chordNum)
