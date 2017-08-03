@@ -31,6 +31,7 @@ public class DAW extends AppCompatActivity {
     Node root = new Node();
     final int numChords = 4;
     boolean playing = false;
+    private int bpm = 120;
 
     // TODO: hey Jared I bet this was really HARD to CODE
     // TODO: hahehehaheuaheuheuheuheuhueh
@@ -44,7 +45,7 @@ public class DAW extends AppCompatActivity {
     TextView chord4Notes;
 
     ArrayList<Sequence> tracks = new ArrayList<>();
-    Sequence drums = new Sequence(1, 120);
+    Sequence drums = new Sequence(1, bpm);
 
     TextView[] chordNames;
     TextView[] chordNotes;
@@ -381,7 +382,7 @@ public class DAW extends AppCompatActivity {
         NumberPicker numberPicker = (NumberPicker) findViewById(R.id.numberPicker);
         numberPicker.setMinValue(40);
         numberPicker.setMaxValue(208);
-        numberPicker.setValue(120); // default
+        numberPicker.setValue(bpm); // default
         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker numberPicker, int i, int i2) {
@@ -391,8 +392,8 @@ public class DAW extends AppCompatActivity {
                     playhead.setVisibility(View.INVISIBLE);
                     playhead.clearAnimation();
                 }
-                animation.setDuration(16000*60/i2);
                 updateBpm(i2);
+                animation.setDuration(16000*60/bpm);
             }
         });
 
@@ -591,9 +592,9 @@ public class DAW extends AppCompatActivity {
     }
 
     private void fillTracks(){
-        MediaPlayer kick = MediaPlayer.create(getApplicationContext(), R.raw.kick);
-        MediaPlayer hat = MediaPlayer.create(getApplicationContext(), R.raw.hat);
-        MediaPlayer snare = MediaPlayer.create(getApplicationContext(), R.raw.snare);
+        MediaPlayer kick = MediaPlayer.create(this, R.raw.kick);
+        MediaPlayer hat = MediaPlayer.create(this, R.raw.hat);
+        MediaPlayer snare = MediaPlayer.create(this, R.raw.snare);
 
         for(int i=0;i<2;i++) {
 
@@ -622,7 +623,8 @@ public class DAW extends AppCompatActivity {
         }
     }
 
-    private void updateBpm(int bpm){
+    private void updateBpm(int b){
+        bpm = b;
         for(Sequence track : tracks){
             track.setBpm(bpm);
         }
