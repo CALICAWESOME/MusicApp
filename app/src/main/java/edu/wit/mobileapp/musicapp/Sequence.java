@@ -68,6 +68,14 @@ public class Sequence implements Runnable{
         }
     }
 
+    public void prepare(){
+        for (int i=0;i<sounds.length;i++){
+            for (MediaPlayer m : sounds[i]) {
+                m.prepareAsync();
+            }
+        }
+    }
+
     public void removeSound(MediaPlayer x, int t){
         this.pause();
         sounds[t].remove(x);

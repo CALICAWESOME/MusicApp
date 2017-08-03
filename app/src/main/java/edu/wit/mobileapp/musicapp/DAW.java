@@ -361,14 +361,14 @@ public class DAW extends AppCompatActivity {
                 if(playing){
                     playButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                     playing = false;
-                    //pauseTracks();
+                    pauseTracks();
                     playhead.setVisibility(View.INVISIBLE);
                     playhead.clearAnimation();
                 }
                 else{
                     playButton.setImageResource(R.drawable.ic_pause_black_24dp);
                     playing = true;
-                    //playTracks();
+                    playTracks();
                     playhead.setVisibility(View.VISIBLE);
                     playhead.startAnimation(animation);
                 }
@@ -586,19 +586,23 @@ public class DAW extends AppCompatActivity {
     }
 
     private void fillTracks(){
+        /*
         for(int i=0;i<2;i++) {
             drums.addSound(MediaPlayer.create(this, R.raw.kick), i*4+0);
             drums.addSound(MediaPlayer.create(this, R.raw.hat), i*4+2);
             drums.addSound(MediaPlayer.create(this, R.raw.snare), i*4+4);
             drums.addSound(MediaPlayer.create(this, R.raw.kick), i*4+4);
             drums.addSound(MediaPlayer.create(this, R.raw.hat), i*4+6);
-        }
+        }*/
+
+        drums.addSound(MediaPlayer.create(getApplicationContext(), R.raw.test), 0);
 
         tracks.add(drums);
     }
 
     private void playTracks(){
         for(Sequence track : tracks){
+
             track.play();
         }
     }
