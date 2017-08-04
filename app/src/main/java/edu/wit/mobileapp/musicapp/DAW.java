@@ -39,7 +39,7 @@ public class DAW extends AppCompatActivity {
     final int numChords = 4;
     boolean playing = false;
     private int bpm = 120;
-    Sequence[] drumTrack = new Sequence[4];
+    Sequence drumTrack = new Sequence();
     Sequence[] pianoTrack = new Sequence[4];
     Timer timer;
 
@@ -387,6 +387,21 @@ public class DAW extends AppCompatActivity {
                             }
                         }
                     }
+
+                    for (int slice = 0; slice < drumTrack.sounds.size(); slice++) {
+                        for (final MediaPlayer sound : drumTrack.sounds.get(slice)) {
+                            TimerTask task = new TimerTask() {
+                                @Override
+                                public void run() {
+                                    new Thread(new Sound(sound)).start();
+                                }
+                            };
+                            double tick = 1000*60.0/bpm;
+                            long delay = (long) Math.floor(tick);
+                            long interval = (long) Math.floor(tick*4);
+                            timer.scheduleAtFixedRate(task, 4*delay, interval);
+                        }
+                    }
                 }
             }
         });
@@ -611,17 +626,16 @@ public class DAW extends AppCompatActivity {
         MediaPlayer hat = MediaPlayer.create(this, R.raw.hat);
         MediaPlayer snare = MediaPlayer.create(this, R.raw.snare);
 
-        Sequence drums = new Sequence();
-        drums.addSound(kick, 0);
-        drums.addSound(hat, 2);
-        drums.addSound(kick, 4);
-        drums.addSound(snare, 4);
-        drums.addSound(hat, 6);
+        drumTrack.addSound(kick, 0);
+        drumTrack.addSound(hat, 2);
+        drumTrack.addSound(kick, 4);
+        drumTrack.addSound(snare, 4);
+        drumTrack.addSound(hat, 6);
 
 
 
         //drums.addSound(MediaPlayer.create(getApplicationContext(), R.raw.test), 0);
 
-        tracks.add(drums);
+        //tracks.add(drums);
     }
 }
