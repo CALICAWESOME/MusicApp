@@ -2,6 +2,7 @@ package edu.wit.mobileapp.musicapp;
 
 import android.app.Dialog;
 import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -541,11 +542,11 @@ public class DAW extends AppCompatActivity {
 
         dialog.show();
 
-        TableRow record = (TableRow) findViewById(R.id.record);
+        ImageView record = (ImageView) findViewById(R.id.wave);
         record.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // here
+                //here
             }
         });
     }
