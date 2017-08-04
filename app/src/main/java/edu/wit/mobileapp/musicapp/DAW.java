@@ -39,7 +39,7 @@ public class DAW extends AppCompatActivity {
     final int numChords = 4;
     boolean playing = false;
     private int bpm = 120;
-    Sequence drumTrack = new Sequence();
+    Sequence[] drumTrack = new Sequence[4];
     Sequence[] pianoTrack = new Sequence[4];
     Timer timer;
 
@@ -145,6 +145,8 @@ public class DAW extends AppCompatActivity {
      * @param element: ProgElement to replace prog[i] with
      */
     void updateProgAt(int i, ProgElement element) {
+        if (playing)
+            stopPlaying(findViewById(R.id.play));
         // change prog[i]
         prog[i] = element;
         Theory.chord newChord = prog[i].getChord();
@@ -172,6 +174,55 @@ public class DAW extends AppCompatActivity {
                 return Theory.num2Chord(scaleStep, key);
             else
                 return chord;
+        }
+    }
+
+    void stopPlaying(View v) {
+        ImageView playButton = (ImageView) findViewById(v.getId());
+        ImageView playhead = (ImageView) findViewById(R.id.playhead);
+
+        playButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
+        playing = false;
+        playhead.setVisibility(View.INVISIBLE);
+        playhead.clearAnimation();
+        if (timer != null) {
+            timer.cancel();
+            timer.purge();
+        }
+        // release all sounds
+        for (Sequence sequence : pianoTrack)
+            for (ArrayList<MediaPlayer> slice : sequence.sounds)
+                for (MediaPlayer sound : slice)
+                    sound.release();
+    }
+
+    void startPlaying(View v, Animation animation) {
+        ImageView playButton = (ImageView) findViewById(v.getId());
+        ImageView playhead = (ImageView) findViewById(R.id.playhead);
+
+        playButton.setImageResource(R.drawable.ic_pause_black_24dp);
+        playing = true;
+        playhead.setVisibility(View.VISIBLE);
+        playhead.startAnimation(animation);
+        for (int measure = 0; measure < pianoTrack.length; measure++) {
+            pianoTrack[measure] = prog[measure].getChord().getSequence(getApplicationContext());
+        }
+        timer = new Timer(true);
+        for (int sequence = 0; sequence < pianoTrack.length; sequence++) {
+            for (int slice = 0; slice < pianoTrack[sequence].sounds.size(); slice++) {
+                for (final MediaPlayer sound : pianoTrack[sequence].sounds.get(slice)) {
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            new Thread(new Sound(sound)).start();
+                        }
+                    };
+                    double tick = 1000*60.0/bpm;
+                    long delay = (long) Math.floor(sequence*tick);
+                    long interval = (long) Math.floor(tick*4);
+                    timer.scheduleAtFixedRate(task, 4*delay, 4*interval);
+                }
+            }
         }
     }
 
@@ -347,61 +398,11 @@ public class DAW extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(playing){
-                    playButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
-                    playing = false;
-                    playhead.setVisibility(View.INVISIBLE);
-                    playhead.clearAnimation();
-                    if (timer != null) {
-                        timer.cancel();
-                        timer.purge();
-                    }
-                    // release all sounds
-                    for (Sequence sequence : pianoTrack)
-                        for (ArrayList<MediaPlayer> slice : sequence.sounds)
-                            for (MediaPlayer sound : slice)
-                                sound.release();
+                if(playing) {
+                    stopPlaying(v);
                 }
                 else{
-                    playButton.setImageResource(R.drawable.ic_pause_black_24dp);
-                    playing = true;
-                    playhead.setVisibility(View.VISIBLE);
-                    playhead.startAnimation(animation);
-                    for (int measure = 0; measure < pianoTrack.length; measure++) {
-                        pianoTrack[measure] = prog[measure].getChord().getSequence(getApplicationContext());
-                    }
-                    timer = new Timer(true);
-                    for (int sequence = 0; sequence < pianoTrack.length; sequence++) {
-                        for (int slice = 0; slice < pianoTrack[sequence].sounds.size(); slice++) {
-                            for (final MediaPlayer sound : pianoTrack[sequence].sounds.get(slice)) {
-                                TimerTask task = new TimerTask() {
-                                    @Override
-                                    public void run() {
-                                        new Thread(new Sound(sound)).start();
-                                    }
-                                };
-                                double tick = 1000*60.0/bpm;
-                                long delay = (long) Math.floor(sequence*tick);
-                                long interval = (long) Math.floor(tick*4);
-                                timer.scheduleAtFixedRate(task, 4*delay, 4*interval);
-                            }
-                        }
-                    }
-
-                    for (int slice = 0; slice < drumTrack.sounds.size(); slice++) {
-                        for (final MediaPlayer sound : drumTrack.sounds.get(slice)) {
-                            TimerTask task = new TimerTask() {
-                                @Override
-                                public void run() {
-                                    new Thread(new Sound(sound)).start();
-                                }
-                            };
-                            double tick = 1000*60.0/bpm;
-                            long delay = (long) Math.floor(tick);
-                            long interval = (long) Math.floor(tick*4);
-                            timer.scheduleAtFixedRate(task, delay, interval);
-                        }
-                    }
+                    startPlaying(v, animation);
                 }
             }
         });
@@ -417,6 +418,7 @@ public class DAW extends AppCompatActivity {
             @Override
             public void onValueChange(NumberPicker numberPicker, int i, int i2) {
                 if(playing){
+                    stopPlaying(findViewById(R.id.play));
                     playButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                     playing = false;
                     playhead.setVisibility(View.INVISIBLE);
@@ -626,11 +628,11 @@ public class DAW extends AppCompatActivity {
         MediaPlayer hat = MediaPlayer.create(this, R.raw.hat);
         MediaPlayer snare = MediaPlayer.create(this, R.raw.snare);
 
-        drumTrack.addSound(kick, 0);
-        drumTrack.addSound(hat, 2);
-        drumTrack.addSound(kick, 4);
-        drumTrack.addSound(snare, 4);
-        drumTrack.addSound(hat, 6);
+        Sequence drums = new Sequence();
+        drums.addSound(kick, 0);
+        drums.addSound(hat, 2);
+        drums.addSound(snare, 4);
+        drums.addSound(hat, 6);
 
 
 
