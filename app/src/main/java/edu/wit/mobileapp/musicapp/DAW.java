@@ -208,8 +208,19 @@ public class DAW extends AppCompatActivity {
             pianoTrack[measure] = prog[measure].getChord().getSequence(getApplicationContext());
         }
         timer = new Timer(true);
+
+        // for each piano sequence
         for (int sequence = 0; sequence < pianoTrack.length; sequence++) {
+
+            // for each slice in that sequence
             for (int slice = 0; slice < pianoTrack[sequence].sounds.size(); slice++) {
+
+                // calculate some things
+                double tick = 1000*60.0/bpm;
+                long delay = (long) Math.floor(sequence*tick);
+                long interval = (long) Math.floor(tick*4);
+
+                // for each sound in that slices
                 for (final MediaPlayer sound : pianoTrack[sequence].sounds.get(slice)) {
                     TimerTask task = new TimerTask() {
                         @Override
@@ -217,9 +228,16 @@ public class DAW extends AppCompatActivity {
                             new Thread(new Sound(sound)).start();
                         }
                     };
-                    double tick = 1000*60.0/bpm;
-                    long delay = (long) Math.floor(sequence*tick);
-                    long interval = (long) Math.floor(tick*4);
+                    timer.scheduleAtFixedRate(task, 4*delay, 4*interval);
+                }
+
+                for (final MediaPlayer sound : drumTrack[sequence].sounds.get(slice)) {
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            new Thread(new Sound(sound)).start();
+                        }
+                    };
                     timer.scheduleAtFixedRate(task, 4*delay, 4*interval);
                 }
             }
@@ -624,15 +642,6 @@ public class DAW extends AppCompatActivity {
     }
 
     private void fillTracks(){
-        MediaPlayer kick = MediaPlayer.create(this, R.raw.kick);
-        MediaPlayer hat = MediaPlayer.create(this, R.raw.hat);
-        MediaPlayer snare = MediaPlayer.create(this, R.raw.snare);
-
-        Sequence drums = new Sequence();
-        drums.addSound(kick, 0);
-        drums.addSound(hat, 2);
-        drums.addSound(snare, 4);
-        drums.addSound(hat, 6);
 
 
 

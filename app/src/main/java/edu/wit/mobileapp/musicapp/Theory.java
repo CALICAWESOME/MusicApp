@@ -143,13 +143,4 @@ class Theory {
         return chord;
     }
 
-    public static void main(String[] args) {
-
-        chord hey = new chord(note.Ab, type.major);
-        int ass = hey.isPartOf(note.G);
-
-        return;
-
-    }
-
 }

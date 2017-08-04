@@ -22,14 +22,4 @@ class Sequence {
     void addSound(MediaPlayer sound, int index) {
         sounds.get(index).add(sound);
     }
-
-    private void playStep(int x) {
-        for (MediaPlayer m : sounds.get(x))  {
-            if(m.isPlaying()) {
-                m.pause();
-            }
-            m.seekTo(0);
-            m.start();
-        }
-    }
 }
