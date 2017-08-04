@@ -387,6 +387,21 @@ public class DAW extends AppCompatActivity {
                             }
                         }
                     }
+
+                    for (int slice = 0; slice < drumTrack.sounds.size(); slice++) {
+                        for (final MediaPlayer sound : drumTrack.sounds.get(slice)) {
+                            TimerTask task = new TimerTask() {
+                                @Override
+                                public void run() {
+                                    new Thread(new Sound(sound)).start();
+                                }
+                            };
+                            double tick = 1000*60.0/bpm;
+                            long delay = (long) Math.floor(tick);
+                            long interval = (long) Math.floor(tick*4);
+                            timer.scheduleAtFixedRate(task, delay, interval);
+                        }
+                    }
                 }
             }
         });
@@ -621,6 +636,6 @@ public class DAW extends AppCompatActivity {
 
         //drums.addSound(MediaPlayer.create(getApplicationContext(), R.raw.test), 0);
 
-        tracks.add(drumTrack);
+        //tracks.add(drums);
     }
 }
