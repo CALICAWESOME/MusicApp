@@ -17,10 +17,6 @@ class Sound implements Runnable {
         });
     }
 
-    MediaPlayer getSound() {
-        return this.sound;
-    }
-
     @Override
     public void run() {
         try {

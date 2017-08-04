@@ -190,7 +190,7 @@ public class DAW extends AppCompatActivity {
         //Tab 1
         TabHost.TabSpec spec = host.newTabSpec("Write");
         spec.setContent(R.id.tab1);
-        spec.setIndicator("WRITE"); 
+        spec.setIndicator("WRITE");
         host.addTab(spec);
 
         //Tab 2
@@ -385,21 +385,6 @@ public class DAW extends AppCompatActivity {
                                 long interval = (long) Math.floor(tick*4);
                                 timer.scheduleAtFixedRate(task, 4*delay, 4*interval);
                             }
-                        }
-                    }
-
-                    for (int slice = 0; slice < drumTrack.sounds.size(); slice++) {
-                        for (final MediaPlayer sound : drumTrack.sounds.get(slice)) {
-                            TimerTask task = new TimerTask() {
-                                @Override
-                                public void run() {
-                                    new Thread(new Sound(sound)).start();
-                                }
-                            };
-                            double tick = 1000*60.0/bpm;
-                            long delay = (long) Math.floor(tick);
-                            long interval = (long) Math.floor(tick*4);
-                            timer.scheduleAtFixedRate(task, 4*delay, interval);
                         }
                     }
                 }
@@ -636,6 +621,6 @@ public class DAW extends AppCompatActivity {
 
         //drums.addSound(MediaPlayer.create(getApplicationContext(), R.raw.test), 0);
 
-        //tracks.add(drums);
+        tracks.add(drumTrack);
     }
 }
