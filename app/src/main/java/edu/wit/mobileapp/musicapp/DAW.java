@@ -241,10 +241,10 @@ public class DAW extends AppCompatActivity {
                             new Thread(new Sound(sound)).start();
                         }
                     };
-                    double tick = 1000*60.0/bpm;
-                    long delay = (long) Math.floor(sequence*tick+(slice*250));
+                    double tick = 500*60.0/bpm;
+                    long delay = (long) Math.floor(slice*tick);
                     long interval = (long) Math.floor(tick*4);
-                    timer.scheduleAtFixedRate(task, delay, interval);
+                    timer.scheduleAtFixedRate(task, delay, interval*2);
                 }
             }
         }
