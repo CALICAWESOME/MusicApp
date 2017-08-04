@@ -222,6 +222,7 @@
                             </TableRow>
 
                             <TableRow
+                                android:id="@+id/record"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -1068,7 +1069,7 @@
                                     android:layout_marginRight="5dp"
                                     android:ems="10"
                                     android:inputType="textMultiLine"
-                                    android:textSize="20sp" />
+                                    android:textSize="24sp" />
                             </TableRow>
                         </TableLayout>
 
@@ -1091,7 +1092,8 @@
             android:layout_height="match_parent"
             android:layout_alignStart="@+id/playheadImage"
             android:layout_below="@+id/toolbar"
-            android:layout_marginBottom="50dp">
+            android:layout_marginBottom="50dp"
+            android:id="@+id/relativeLayout">
 
             <ImageView
                 android:id="@+id/playhead"
@@ -1099,6 +1101,7 @@
                 android:layout_height="12dp"
                 android:background="@drawable/ic_key_selected"
                 android:scaleType="fitXY" />
+
         </RelativeLayout>
 
         <ImageView
