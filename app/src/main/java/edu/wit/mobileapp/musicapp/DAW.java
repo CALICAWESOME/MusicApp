@@ -218,9 +218,7 @@ public class DAW extends AppCompatActivity {
             for (int slice = 0; slice < pianoTrack[sequence].sounds.size(); slice++) {
 
                 // calculate some things
-                double tick = 1000*60.0/bpm;
-                long delay = (long) Math.floor(sequence*tick);
-                long interval = (long) Math.floor(tick*4);
+
 
                 // for each sound in that slices
                 for (final MediaPlayer sound : pianoTrack[sequence].sounds.get(slice)) {
@@ -230,6 +228,9 @@ public class DAW extends AppCompatActivity {
                             new Thread(new Sound(sound)).start();
                         }
                     };
+                    double tick = 1000*60.0/bpm;
+                    long delay = (long) Math.floor(sequence*tick);
+                    long interval = (long) Math.floor(tick*4);
                     timer.scheduleAtFixedRate(task, 4*delay, 4*interval);
                 }
 
@@ -240,7 +241,10 @@ public class DAW extends AppCompatActivity {
                             new Thread(new Sound(sound)).start();
                         }
                     };
-                    timer.scheduleAtFixedRate(task, 4*delay, 4*interval);
+                    double tick = 1000*60.0/bpm;
+                    long delay = (long) Math.floor(sequence*tick+(slice*250));
+                    long interval = (long) Math.floor(tick*4);
+                    timer.scheduleAtFixedRate(task, delay, interval);
                 }
             }
         }
@@ -653,7 +657,18 @@ public class DAW extends AppCompatActivity {
 
     private void fillTracks(){
 
+        Sequence d = new Sequence();
 
+        d.addSound(MediaPlayer.create(this, R.raw.kick), 0);
+        d.addSound(MediaPlayer.create(this, R.raw.hat), 2);
+        d.addSound(MediaPlayer.create(this, R.raw.snare), 4);
+        d.addSound(MediaPlayer.create(this, R.raw.kick), 4);
+        d.addSound(MediaPlayer.create(this, R.raw.hat), 6);
+
+        drumTrack[0] = d;
+        drumTrack[1] = new Sequence();
+        drumTrack[2] = new Sequence();
+        drumTrack[3] = new Sequence();
 
         //drums.addSound(MediaPlayer.create(getApplicationContext(), R.raw.test), 0);
 

@@ -11,8 +11,7 @@ class Sound implements Runnable {
         this.sound.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                mp.stop();
-                mp.release();
+                mp.pause();
             }
         });
     }
