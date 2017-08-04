@@ -19,13 +19,8 @@ class Sound implements Runnable {
 
     @Override
     public void run() {
-        try {
-            sound.seekTo(0);
-            sound.start();
-        }
-        catch (IllegalStateException e) {
-            e.printStackTrace();
-        }
+        sound.seekTo(0);
+        sound.start();
     }
 
 }
