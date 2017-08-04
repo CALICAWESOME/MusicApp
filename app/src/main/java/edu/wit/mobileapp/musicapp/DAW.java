@@ -660,10 +660,10 @@ public class DAW extends AppCompatActivity {
         Sequence d = new Sequence();
 
         d.addSound(MediaPlayer.create(this, R.raw.kick), 0);
-        d.addSound(MediaPlayer.create(this, R.raw.hat), 2);
+        //d.addSound(MediaPlayer.create(this, R.raw.hat), 2);
         d.addSound(MediaPlayer.create(this, R.raw.snare), 4);
-        d.addSound(MediaPlayer.create(this, R.raw.kick), 4);
-        d.addSound(MediaPlayer.create(this, R.raw.hat), 6);
+        //d.addSound(MediaPlayer.create(this, R.raw.kick), 4);
+        //d.addSound(MediaPlayer.create(this, R.raw.hat), 6);
 
         drumTrack[0] = d;
         drumTrack[1] = new Sequence();
