@@ -207,6 +207,15 @@ public class DAW extends AppCompatActivity {
         playhead.startAnimation(animation);
         for (int measure = 0; measure < pianoTrack.length; measure++) {
             pianoTrack[measure] = prog[measure].getChord().getSequence(getApplicationContext());
+
+            // make ye drums
+            Sequence drums = new Sequence();
+            drums.addSound(MediaPlayer.create(this, R.raw.kick), 0);
+            drums.addSound(MediaPlayer.create(this, R.raw.hat), 2);
+            drums.addSound(MediaPlayer.create(this, R.raw.snare), 4);
+            drums.addSound(MediaPlayer.create(this, R.raw.hat), 6);
+
+            drumTrack[measure] = drums;
         }
         timer = new Timer(true);
 
