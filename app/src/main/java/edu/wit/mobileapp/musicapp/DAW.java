@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.TabHost;
 
@@ -539,6 +540,14 @@ public class DAW extends AppCompatActivity {
         });
 
         dialog.show();
+
+        TableRow record = (TableRow) findViewById(R.id.record);
+        record.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // here
+            }
+        });
     }
 
     //////////////////////////////////
