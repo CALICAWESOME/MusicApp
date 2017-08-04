@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg"
+    android:theme="@style/AppTheme"
     tools:context="edu.wit.mobileapp.musicapp.MainActivity">
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="false"
         android:layout_margin="20dp"
-        android:layout_centerHorizontal="true"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <ListView
@@ -33,5 +34,24 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
         android:text="@string/create" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_alignStart="@+id/button"
+        android:layout_marginTop="11dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Boots & Cats"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
 
 </RelativeLayout>
