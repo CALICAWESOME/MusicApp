@@ -380,9 +380,10 @@ public class DAW extends AppCompatActivity {
                                         new Thread(new Sound(sound)).start();
                                     }
                                 };
-                                long delay = sequence*1000;
-                                long interval = 4000;
-                                timer.scheduleAtFixedRate(task, delay, interval);
+                                double tick = 1000*60.0/bpm;
+                                long delay = (long) Math.floor(sequence*tick);
+                                long interval = (long) Math.floor(tick*4);
+                                timer.scheduleAtFixedRate(task, 4*delay, 4*interval);
                             }
                         }
                     }
@@ -406,6 +407,7 @@ public class DAW extends AppCompatActivity {
                     playhead.setVisibility(View.INVISIBLE);
                     playhead.clearAnimation();
                 }
+                bpm = i2;
                 animation.setDuration(16000*60/bpm);
             }
         });
@@ -612,6 +614,7 @@ public class DAW extends AppCompatActivity {
         Sequence drums = new Sequence();
         drums.addSound(kick, 0);
         drums.addSound(hat, 2);
+        drums.addSound(kick, 4);
         drums.addSound(snare, 4);
         drums.addSound(hat, 6);
 
