@@ -2,9 +2,11 @@ package edu.wit.mobileapp.musicapp;
 
 import android.app.Dialog;
 import android.media.MediaPlayer;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -23,7 +25,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class DAW extends AppCompatActivity {
 
@@ -31,6 +39,9 @@ public class DAW extends AppCompatActivity {
     final int numChords = 4;
     boolean playing = false;
     private int bpm = 120;
+    Sequence[] drumTrack = new Sequence[4];
+    Sequence[] pianoTrack = new Sequence[4];
+    Timer timer;
 
     // TODO: hey Jared I bet this was really HARD to CODE
     // TODO: HAHEHEHAHEUAHEUHEUHEUHEUHUEH
@@ -126,12 +137,7 @@ public class DAW extends AppCompatActivity {
 
     Theory.note key = Theory.note.C;
     Theory.type degree = Theory.type.major;
-    ProgElement prog[] = {
-            new ProgElement(1, null),
-            new ProgElement(5, null),
-            new ProgElement(6, null),
-            new ProgElement(4, null)
-    };
+    ProgElement prog[] = new ProgElement[4];
 
     /**
      * A nice function to manage changing everything else when we want to edit the chord progression
@@ -288,12 +294,6 @@ public class DAW extends AppCompatActivity {
                 chordSelectorDialog(0, chord1);
             }
         });
-        chord1.setText(prog[0].getChord().toString());
-        chord1Name.setText(prog[0].getChord().toString());
-        chord1Notes.setText(prog[0].getChord().getNotesString());
-        for(Theory.note n:prog[0].getChord().getNotes()){
-            piano1[n.getVal()].setImageResource(R.drawable.ic_key_selected);
-        }
 
         final Button chord2 = (Button) findViewById(R.id.chord2);
         chord2.setOnClickListener(new View.OnClickListener() {
@@ -302,12 +302,6 @@ public class DAW extends AppCompatActivity {
                 chordSelectorDialog(1, chord2);
             }
         });
-        chord2.setText(prog[1].getChord().toString());
-        chord2Name.setText(prog[1].getChord().toString());
-        chord2Notes.setText(prog[1].getChord().getNotesString());
-        for(Theory.note n:prog[1].getChord().getNotes()){
-            piano2[n.getVal()].setImageResource(R.drawable.ic_key_selected);
-        }
 
         final Button chord3 = (Button) findViewById(R.id.chord3);
         chord3.setOnClickListener(new View.OnClickListener() {
@@ -316,12 +310,6 @@ public class DAW extends AppCompatActivity {
                 chordSelectorDialog(2, chord3);
             }
         });
-        chord3.setText(prog[2].getChord().toString());
-        chord3Name.setText(prog[2].getChord().toString());
-        chord3Notes.setText(prog[2].getChord().getNotesString());
-        for(Theory.note n:prog[2].getChord().getNotes()){
-            piano3[n.getVal()].setImageResource(R.drawable.ic_key_selected);
-        }
 
         final Button chord4 = (Button) findViewById(R.id.chord4);
         chord4.setOnClickListener(new View.OnClickListener() {
@@ -330,14 +318,16 @@ public class DAW extends AppCompatActivity {
                 chordSelectorDialog(3, chord4);
             }
         });
-        chord4.setText(prog[3].getChord().toString());
-        chord4Name.setText(prog[3].getChord().toString());
-        chord4Notes.setText(prog[3].getChord().getNotesString());
-        for(Theory.note n:prog[3].getChord().getNotes()){
-            piano4[n.getVal()].setImageResource(R.drawable.ic_key_selected);
-        }
 
         progButtons = new Button[]{chord1, chord2, chord3, chord4};
+
+        /////////////////
+        // SET UP PROG //
+        /////////////////
+        updateProgAt(0, new ProgElement(1, null));
+        updateProgAt(1, new ProgElement(5, null));
+        updateProgAt(2, new ProgElement(6, null));
+        updateProgAt(3, new ProgElement(4, null));
 
         //////////////
         // PLAYHEAD //
@@ -360,16 +350,42 @@ public class DAW extends AppCompatActivity {
                 if(playing){
                     playButton.setImageResource(R.drawable.ic_play_arrow_black_24dp);
                     playing = false;
-                    pauseTracks();
                     playhead.setVisibility(View.INVISIBLE);
                     playhead.clearAnimation();
+                    if (timer != null) {
+                        timer.cancel();
+                        timer.purge();
+                    }
+                    // release all sounds
+                    for (Sequence sequence : pianoTrack)
+                        for (ArrayList<MediaPlayer> slice : sequence.sounds)
+                            for (MediaPlayer sound : slice)
+                                sound.release();
                 }
                 else{
                     playButton.setImageResource(R.drawable.ic_pause_black_24dp);
                     playing = true;
-                    playTracks();
                     playhead.setVisibility(View.VISIBLE);
                     playhead.startAnimation(animation);
+                    for (int measure = 0; measure < pianoTrack.length; measure++) {
+                        pianoTrack[measure] = prog[measure].getChord().getSequence(getApplicationContext());
+                    }
+                    timer = new Timer(true);
+                    for (int sequence = 0; sequence < pianoTrack.length; sequence++) {
+                        for (int slice = 0; slice < pianoTrack[sequence].sounds.size(); slice++) {
+                            for (final MediaPlayer sound : pianoTrack[sequence].sounds.get(slice)) {
+                                TimerTask task = new TimerTask() {
+                                    @Override
+                                    public void run() {
+                                        new Thread(new Sound(sound)).start();
+                                    }
+                                };
+                                long delay = sequence*1000;
+                                long interval = 4000;
+                                timer.scheduleAtFixedRate(task, delay, interval);
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -390,7 +406,6 @@ public class DAW extends AppCompatActivity {
                     playhead.setVisibility(View.INVISIBLE);
                     playhead.clearAnimation();
                 }
-                updateBpm(i2);
                 animation.setDuration(16000*60/bpm);
             }
         });
@@ -460,7 +475,7 @@ public class DAW extends AppCompatActivity {
         LayoutInflater inflater =  getLayoutInflater();
         TableLayout suggTable = (TableLayout) dialog.findViewById(R.id.suggsTable);
         for (final int i : suggs) {
-            // turn the number into a chord
+            // turn the number into anote chord
             // - get suggs
             final Theory.chord chord = Theory.num2Chord(i, key);
             // - add suggs to dialog
@@ -541,13 +556,13 @@ public class DAW extends AppCompatActivity {
     }
 
     private void insertRecursive(Node curr, int[] line, int i) {
-        // base case, empty string means parent is the last letter in a word
+        // base case, empty string means parent is the last letter in anote word
         if (i == line.length) {
             curr.end = true;
             return;
         }
         int j = line[i]-1; // j is the index of the interval, not the interval itself.
-        // if next[j] is null, put a node there
+        // if next[j] is null, put anote node there
         if (curr.next[j] == null) {
             curr.next[j] = new Node();
         }
@@ -593,39 +608,17 @@ public class DAW extends AppCompatActivity {
         MediaPlayer kick = MediaPlayer.create(this, R.raw.kick);
         MediaPlayer hat = MediaPlayer.create(this, R.raw.hat);
         MediaPlayer snare = MediaPlayer.create(this, R.raw.snare);
-        Sequence drums = new Sequence(1, bpm);
 
-        for(int i=0;i<2;i++) {
+        Sequence drums = new Sequence();
+        drums.addSound(kick, 0);
+        drums.addSound(hat, 2);
+        drums.addSound(snare, 4);
+        drums.addSound(hat, 6);
 
-            drums.addSound(kick, i*8+0);
-            drums.addSound(hat, i*8+2);
-            drums.addSound(snare, i*8+4);
-            drums.addSound(kick, i*8+4);
-            drums.addSound(hat, i*8+6);
-        }
+
 
         //drums.addSound(MediaPlayer.create(getApplicationContext(), R.raw.test), 0);
 
         tracks.add(drums);
-    }
-
-    private void playTracks(){
-        for(Sequence track : tracks){
-
-            track.play();
-        }
-    }
-
-    private void pauseTracks(){
-        for(Sequence track : tracks){
-            track.pause();
-        }
-    }
-
-    private void updateBpm(int b){
-        bpm = b;
-        for(Sequence track : tracks){
-            track.setBpm(bpm);
-        }
     }
 }

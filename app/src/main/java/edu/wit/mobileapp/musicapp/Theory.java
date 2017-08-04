@@ -1,5 +1,6 @@
 package edu.wit.mobileapp.musicapp;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 
 class Theory {
@@ -8,8 +9,8 @@ class Theory {
     static String nonEmojiFlat = "\u266D\uFE0E";
 
     static final private int[] noteIds = {
-            R.raw.C, R.raw.Db, R.raw.D, R.raw.Eb, R.raw.E, R.raw.F,
-            R.raw.Gb, R.raw.G, R.raw.Ab, R.raw.A, R.raw.Bb, R.raw.B
+            R.raw.c, R.raw.db, R.raw.d, R.raw.eb, R.raw.e, R.raw.f,
+            R.raw.gb, R.raw.g, R.raw.ab, R.raw.a, R.raw.bb, R.raw.b
     };
 
     enum note {
@@ -33,7 +34,7 @@ class Theory {
         }
         /**
          * @param t: interval type (major, minor, perfect, tritone)
-         * @param interval: interval number, like a 7th or a 4th
+         * @param interval: interval number, like anote 7th or anote 4th
          * @return note of that interval
          */
         note getInterval(type t, int interval) {
@@ -50,8 +51,8 @@ class Theory {
             }
             return this;
         }
-        MediaPlayer getSound() {
-            return null;
+        MediaPlayer getSound(Context context) {
+            return MediaPlayer.create(context, noteIds[this.getVal()]);
         }
     }
 
@@ -95,6 +96,12 @@ class Theory {
                 }
             }
             return ret.replace("b", nonEmojiFlat);
+        }
+        Sequence getSequence(Context context) {
+            Sequence ret = new Sequence();
+            for (note n : this.getNotes())
+                ret.addSound(n.getSound(context), 0);
+            return ret;
         }
         @Override
         public String toString() {
