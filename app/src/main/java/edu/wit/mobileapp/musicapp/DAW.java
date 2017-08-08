@@ -232,17 +232,19 @@ public class DAW extends AppCompatActivity {
                     timer.scheduleAtFixedRate(task, 4*delay, 4*interval);
                 }
 
-                for (final Sound sound : drumTrack[sequence].sounds.get(slice)) {
-                    TimerTask task = new TimerTask() {
-                        @Override
-                        public void run() {
-                            sound.start();
-                        }
-                    };
-                    double tick = 250*60.0/bpm;
-                    long delay = (long) Math.floor(slice*tick);
-                    long interval = (long) Math.floor(tick*8);
-                    timer.scheduleAtFixedRate(task, delay, interval*2);
+                if(sequence == 0) {
+                    for (final Sound sound : drumTrack[sequence].sounds.get(slice)) {
+                        TimerTask task = new TimerTask() {
+                            @Override
+                            public void run() {
+                                sound.start();
+                            }
+                        };
+                        double tick = 250 * 60.0 / bpm;
+                        long delay = (long) Math.floor(slice * tick);
+                        long interval = (long) Math.floor(tick * 8);
+                        timer.scheduleAtFixedRate(task, delay, interval * 2);
+                    }
                 }
             }
         }
@@ -668,12 +670,10 @@ public class DAW extends AppCompatActivity {
         MediaPlayer snare = MediaPlayer.create(this, R.raw.snare);
 
         d.addSound(kick, 0);
-        d.addSound(kick, 4);
         d.addSound(hat, 2);
         d.addSound(snare, 4);
         d.addSound(hat, 6);
         d.addSound(kick, 8);
-        d.addSound(kick, 12);
         d.addSound(hat, 10);
         d.addSound(snare, 12);
         d.addSound(hat, 14);
