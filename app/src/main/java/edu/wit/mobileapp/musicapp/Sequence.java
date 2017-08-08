@@ -22,4 +22,10 @@ class Sequence {
     void addSound(MediaPlayer sound, int index) {
         sounds.get(index).add(new Sound(sound));
     }
+
+    void pause(){
+        for (Sound s : sounds.get(0)){
+            s.pause();
+        }
+    }
 }

@@ -40,12 +40,15 @@ public class DAW extends AppCompatActivity {
     Node root = new Node();
     final int numChords = 4;
     boolean playing = false;
+    private boolean chordInit = false;
     private int bpm = 120;
     Sequence[] drumTrack = new Sequence[4];
+    Sequence[] bassTrack = new Sequence[4];
     Sequence[] pianoTrack = new Sequence[4];
     Timer timer;
 
     private MediaPlayer[] noteIds = new MediaPlayer[12];
+    private MediaPlayer[] bassIds = new MediaPlayer[12];
 
     // TODO: hey Jared I bet this was really HARD to CODE
     // TODO: HAHEHEHAHEUAHEUHEUHEUHEUHUEH
@@ -157,6 +160,9 @@ public class DAW extends AppCompatActivity {
         chordNames[i].setText(newChord.toString());
         chordNotes[i].setText(newChord.getNotesString());
         resetPiano(i);
+        if(chordInit){
+            fillPiano();
+        }
         for(Theory.note n : prog[i].getChord().getNotes()){
             pianos[i][n.getVal()].setImageResource(R.drawable.ic_key_selected);
         }
@@ -193,9 +199,10 @@ public class DAW extends AppCompatActivity {
         }
         // pause all sounds
         for (Sequence sequence : pianoTrack)
-            for (ArrayList<Sound> slice : sequence.sounds)
-                for (Sound sound : slice)
-                    sound.pause();
+            sequence.pause();
+
+        for (Sequence sequence : bassTrack)
+            sequence.pause();
     }
 
     void startPlaying(View v, Animation animation) {
@@ -211,15 +218,22 @@ public class DAW extends AppCompatActivity {
 
         // for each piano sequence
         for (int sequence = 0; sequence < pianoTrack.length; sequence++) {
-
+            final int y = sequence;
             // for each slice in that sequence
             for (int slice = 0; slice < pianoTrack[sequence].sounds.size(); slice++) {
-
+                final int s = slice;
                 // for each sound in that slices
                 for (final Sound sound : pianoTrack[sequence].sounds.get(slice)) {
                     TimerTask task = new TimerTask() {
                         @Override
                         public void run() {
+                            if(s == 0){
+                                int c = y-1;
+                                if (c<0){
+                                    c = 3;
+                                }
+                                pianoTrack[c].pause();
+                            }
                             sound.start();
                         }
                     };
@@ -227,6 +241,30 @@ public class DAW extends AppCompatActivity {
                     long delay = (long) Math.floor(sequence*tick);
                     long interval = (long) Math.floor(tick*4);
                     timer.scheduleAtFixedRate(task, 4*delay, 4*interval);
+                }
+
+                for (final Sound sound : bassTrack[sequence].sounds.get(slice)) {
+                    TimerTask task = new TimerTask() {
+                        @Override
+                        public void run() {
+                            if(s == 0){
+                                int c = y-1;
+                                if (c<0){
+                                    c = 3;
+                                }
+                                bassTrack[c].pause();
+                            }
+                            else{
+                                bassTrack[y].pause();
+                            }
+                            sound.start();
+                        }
+                    };
+                    double tick = 1000*60.0/bpm;
+                    long delay2 = (long) Math.floor(tick*(slice/4));
+                    long delay = (long) Math.floor(sequence*tick);
+                    long interval = (long) Math.floor(tick*4);
+                    timer.scheduleAtFixedRate(task, (4*delay)+delay2, 4*interval);
                 }
 
                 if(sequence == 0) {
@@ -419,6 +457,7 @@ public class DAW extends AppCompatActivity {
         fillTracks(); //create drum sequence
         initPiano();
         fillPiano();
+        chordInit = true;
 
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -666,6 +705,7 @@ public class DAW extends AppCompatActivity {
         MediaPlayer hat = MediaPlayer.create(this, R.raw.hat);
         MediaPlayer snare = MediaPlayer.create(this, R.raw.snare);
 
+
         d.addSound(kick, 0);
         d.addSound(hat, 2);
         d.addSound(snare, 4);
@@ -674,6 +714,7 @@ public class DAW extends AppCompatActivity {
         d.addSound(hat, 10);
         d.addSound(snare, 12);
         d.addSound(hat, 14);
+
 
         drumTrack[0] = d;
         drumTrack[1] = new Sequence();
@@ -698,14 +739,32 @@ public class DAW extends AppCompatActivity {
         noteIds[9] = MediaPlayer.create(this, R.raw.a);
         noteIds[10] = MediaPlayer.create(this, R.raw.bb);
         noteIds[11] = MediaPlayer.create(this, R.raw.b);
+
+        bassIds[0] = MediaPlayer.create(this, R.raw.c2);
+        bassIds[1] = MediaPlayer.create(this, R.raw.db2);
+        bassIds[2] = MediaPlayer.create(this, R.raw.d2);
+        bassIds[3] = MediaPlayer.create(this, R.raw.eb2);
+        bassIds[4] = MediaPlayer.create(this, R.raw.e2);
+        bassIds[5] = MediaPlayer.create(this, R.raw.f2);
+        bassIds[6] = MediaPlayer.create(this, R.raw.gb2);
+        bassIds[7] = MediaPlayer.create(this, R.raw.g2);
+        bassIds[8] = MediaPlayer.create(this, R.raw.ab2);
+        bassIds[9] = MediaPlayer.create(this, R.raw.a2);
+        bassIds[10] = MediaPlayer.create(this, R.raw.bb2);
+        bassIds[11] = MediaPlayer.create(this, R.raw.b2);
     }
 
     private void fillPiano(){
         for (int measure = 0; measure < pianoTrack.length; measure++) {
             Sequence d = new Sequence();
+            Sequence b = new Sequence();
             for(int c : prog[measure].getChord().getSequence()){
                 d.addSound(noteIds[c], 0);
             }
+            b.addSound(bassIds[prog[measure].getChord().root.getVal()], 0);
+            b.addSound(bassIds[prog[measure].getChord().root.getVal()], 8);
+
+            bassTrack[measure] = b;
             pianoTrack[measure] = d;
         }
     }
