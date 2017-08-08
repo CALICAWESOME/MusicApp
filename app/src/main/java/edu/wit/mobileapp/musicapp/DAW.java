@@ -45,6 +45,8 @@ public class DAW extends AppCompatActivity {
     Sequence[] pianoTrack = new Sequence[4];
     Timer timer;
 
+    private MediaPlayer[] noteIds = new MediaPlayer[12];
+
     // TODO: hey Jared I bet this was really HARD to CODE
     // TODO: HAHEHEHAHEUAHEUHEUHEUHEUHUEH
     TextView chord1Name;
@@ -157,6 +159,7 @@ public class DAW extends AppCompatActivity {
         chordNames[i].setText(newChord.toString());
         chordNotes[i].setText(newChord.getNotesString());
         resetPiano(i);
+        //fillPiano();
         for(Theory.note n : prog[i].getChord().getNotes()){
             pianos[i][n.getVal()].setImageResource(R.drawable.ic_key_selected);
         }
@@ -191,11 +194,11 @@ public class DAW extends AppCompatActivity {
             timer.cancel();
             timer.purge();
         }
-        // release all sounds
+        // pause all sounds
         for (Sequence sequence : pianoTrack)
-            for (ArrayList<MediaPlayer> slice : sequence.sounds)
-                for (MediaPlayer sound : slice)
-                    sound.release();
+            for (ArrayList<Sound> slice : sequence.sounds)
+                for (Sound sound : slice)
+                    sound.pause();
     }
 
     void startPlaying(View v, Animation animation) {
@@ -206,9 +209,7 @@ public class DAW extends AppCompatActivity {
         playing = true;
         playhead.setVisibility(View.VISIBLE);
         playhead.startAnimation(animation);
-        for (int measure = 0; measure < pianoTrack.length; measure++) {
-            pianoTrack[measure] = prog[measure].getChord().getSequence(getApplicationContext());
-        }
+
         timer = new Timer(true);
 
         // for each piano sequence
@@ -217,15 +218,12 @@ public class DAW extends AppCompatActivity {
             // for each slice in that sequence
             for (int slice = 0; slice < pianoTrack[sequence].sounds.size(); slice++) {
 
-                // calculate some things
-
-
                 // for each sound in that slices
-                for (final MediaPlayer sound : pianoTrack[sequence].sounds.get(slice)) {
+                for (final Sound sound : pianoTrack[sequence].sounds.get(slice)) {
                     TimerTask task = new TimerTask() {
                         @Override
                         public void run() {
-                            new Thread(new Sound(sound)).start();
+                            sound.start();
                         }
                     };
                     double tick = 1000*60.0/bpm;
@@ -234,16 +232,16 @@ public class DAW extends AppCompatActivity {
                     timer.scheduleAtFixedRate(task, 4*delay, 4*interval);
                 }
 
-                for (final MediaPlayer sound : drumTrack[sequence].sounds.get(slice)) {
+                for (final Sound sound : drumTrack[sequence].sounds.get(slice)) {
                     TimerTask task = new TimerTask() {
                         @Override
                         public void run() {
-                            new Thread(new Sound(sound)).start();
+                            sound.start();
                         }
                     };
-                    double tick = 500*60.0/bpm;
+                    double tick = 250*60.0/bpm;
                     long delay = (long) Math.floor(slice*tick);
-                    long interval = (long) Math.floor(tick*4);
+                    long interval = (long) Math.floor(tick*8);
                     timer.scheduleAtFixedRate(task, delay, interval*2);
                 }
             }
@@ -418,7 +416,11 @@ public class DAW extends AppCompatActivity {
         animation.setDuration(8000);
         animation.setInterpolator(new LinearInterpolator());
         final ImageView playButton = (ImageView) findViewById(R.id.play);
+
         fillTracks(); //create drum sequence
+        initPiano();
+        fillPiano();
+
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -476,6 +478,8 @@ public class DAW extends AppCompatActivity {
                 }
                 for (int i = 0; i < prog.length; i++)
                     updateProgAt(i, prog[i]);
+
+                fillPiano();
             }
         });
     }
@@ -659,8 +663,20 @@ public class DAW extends AppCompatActivity {
 
         Sequence d = new Sequence();
 
-        d.addSound(MediaPlayer.create(this, R.raw.kick), 0);
-        d.addSound(MediaPlayer.create(this, R.raw.snare), 4);
+        MediaPlayer kick = MediaPlayer.create(this, R.raw.kick);
+        MediaPlayer hat = MediaPlayer.create(this, R.raw.hat);
+        MediaPlayer snare = MediaPlayer.create(this, R.raw.snare);
+
+        d.addSound(kick, 0);
+        d.addSound(kick, 4);
+        d.addSound(hat, 2);
+        d.addSound(snare, 4);
+        d.addSound(hat, 6);
+        d.addSound(kick, 8);
+        d.addSound(kick, 12);
+        d.addSound(hat, 10);
+        d.addSound(snare, 12);
+        d.addSound(hat, 14);
 
         drumTrack[0] = d;
         drumTrack[1] = new Sequence();
@@ -670,5 +686,30 @@ public class DAW extends AppCompatActivity {
         //drums.addSound(MediaPlayer.create(getApplicationContext(), R.raw.test), 0);
 
         //tracks.add(drums);
+    }
+
+    private void initPiano(){
+        noteIds[0] = MediaPlayer.create(this, R.raw.c);
+        noteIds[1] = MediaPlayer.create(this, R.raw.db);
+        noteIds[2] = MediaPlayer.create(this, R.raw.d);
+        noteIds[3] = MediaPlayer.create(this, R.raw.eb);
+        noteIds[4] = MediaPlayer.create(this, R.raw.e);
+        noteIds[5] = MediaPlayer.create(this, R.raw.f);
+        noteIds[6] = MediaPlayer.create(this, R.raw.gb);
+        noteIds[7] = MediaPlayer.create(this, R.raw.g);
+        noteIds[8] = MediaPlayer.create(this, R.raw.ab);
+        noteIds[9] = MediaPlayer.create(this, R.raw.a);
+        noteIds[10] = MediaPlayer.create(this, R.raw.bb);
+        noteIds[11] = MediaPlayer.create(this, R.raw.b);
+    }
+
+    private void fillPiano(){
+        for (int measure = 0; measure < pianoTrack.length; measure++) {
+            Sequence d = new Sequence();
+            for(int c : prog[measure].getChord().getSequence()){
+                d.addSound(noteIds[c], 0);
+            }
+            pianoTrack[measure] = d;
+        }
     }
 }

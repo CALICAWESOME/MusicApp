@@ -3,6 +3,8 @@ package edu.wit.mobileapp.musicapp;
 import android.content.Context;
 import android.media.MediaPlayer;
 
+import java.util.ArrayList;
+
 class Theory {
 
     // forces unicode character and not emoji
@@ -97,10 +99,10 @@ class Theory {
             }
             return ret.replace("b", nonEmojiFlat);
         }
-        Sequence getSequence(Context context) {
-            Sequence ret = new Sequence();
+        ArrayList<Integer> getSequence() {
+            ArrayList<Integer> ret = new ArrayList<Integer>();
             for (note n : this.getNotes())
-                ret.addSound(n.getSound(context), 0);
+                ret.add(n.getVal());
             return ret;
         }
         @Override
