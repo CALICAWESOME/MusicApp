@@ -58,8 +58,6 @@ public class DAW extends AppCompatActivity {
     TextView chord4Name;
     TextView chord4Notes;
 
-    ArrayList<Sequence> tracks = new ArrayList<>();
-
     TextView[] chordNames;
     TextView[] chordNotes;
     Button[] progButtons;
@@ -159,7 +157,6 @@ public class DAW extends AppCompatActivity {
         chordNames[i].setText(newChord.toString());
         chordNotes[i].setText(newChord.getNotesString());
         resetPiano(i);
-        //fillPiano();
         for(Theory.note n : prog[i].getChord().getNotes()){
             pianos[i][n.getVal()].setImageResource(R.drawable.ic_key_selected);
         }
